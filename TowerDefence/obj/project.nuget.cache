@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "a4EMtcjofICAOf9dSLR8xiyfyxgQRg4BoQiiPwFoH4XqWPGFHIpWjnyKRvERPLqv8C7DYM/rJ5+KgQh0DHGfrg==",
+  "dgSpecHash": "OhefLZjrUZJfnV6DiEG3lwXJEWqmw2EjWBnDhV6CozOsg94ORBFYzQ9O3xvkmGo+JI1ZSpoH2Y0OB6RqYhMGJw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\anton\\source\\repos\\TowerDefence\\TowerDefence\\TowerDefence.csproj",
+  "projectFilePath": "C:\\Users\\anton\\TowerDefence\\TowerDefence\\TowerDefence.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\anton\\.nuget\\packages\\libuv\\1.9.1\\libuv.1.9.1.nupkg.sha512",
     "C:\\Users\\anton\\.nuget\\packages\\microsoft.codeanalysis.analyzers\\1.1.0\\microsoft.codeanalysis.analyzers.1.1.0.nupkg.sha512",

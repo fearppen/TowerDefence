@@ -7511,11 +7511,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\anton\\source\\repos\\TowerDefence\\TowerDefence\\TowerDefence.csproj",
+      "projectUniqueName": "C:\\Users\\anton\\TowerDefence\\TowerDefence\\TowerDefence.csproj",
       "projectName": "TowerDefence",
-      "projectPath": "C:\\Users\\anton\\source\\repos\\TowerDefence\\TowerDefence\\TowerDefence.csproj",
+      "projectPath": "C:\\Users\\anton\\TowerDefence\\TowerDefence\\TowerDefence.csproj",
       "packagesPath": "C:\\Users\\anton\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\anton\\source\\repos\\TowerDefence\\TowerDefence\\obj\\",
+      "outputPath": "C:\\Users\\anton\\TowerDefence\\TowerDefence\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

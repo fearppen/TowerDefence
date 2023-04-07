@@ -19,7 +19,7 @@ namespace TowerDefence.States
             var loadGameButton = new Button(buttonTexture, buttonFont)
             {
                 Position = new Vector2(1920 / 2 - 412 / 2, 1080 / 2 - 150 / 2 - 150),
-                Text = "Levels"
+                Text = "Уровни"
             };
 
             loadGameButton.Click += ClickLoadButton;
@@ -27,7 +27,7 @@ namespace TowerDefence.States
             var quitGameButton = new Button(buttonTexture, buttonFont) 
             { 
                 Position = new Vector2(1920 / 2 - 412 / 2, 1080 / 2 - 150 / 2 + 150), 
-                Text = "Exit" 
+                Text = "Выход" 
             };
 
             quitGameButton.Click += ClickExitButton;
