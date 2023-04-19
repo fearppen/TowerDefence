@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 
-namespace TowerDefence
+namespace TowerDefence.Components
 {
     public abstract class Component
     {

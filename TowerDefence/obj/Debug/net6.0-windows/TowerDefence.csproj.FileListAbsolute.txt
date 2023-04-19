@@ -76,3 +76,10 @@ C:\Users\anton\TowerDefence\TowerDefence\obj\Debug\net6.0-windows\refint\TowerDe
 C:\Users\anton\TowerDefence\TowerDefence\obj\Debug\net6.0-windows\TowerDefence.pdb
 C:\Users\anton\TowerDefence\TowerDefence\obj\Debug\net6.0-windows\TowerDefence.genruntimeconfig.cache
 C:\Users\anton\TowerDefence\TowerDefence\obj\Debug\net6.0-windows\ref\TowerDefence.dll
+C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Cells\grass.xnb
+C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Cells\purpleBlock.xnb
+C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Cells\wall.xnb
+C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Controls\sell.xnb
+C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Controls\upgrade.xnb
+C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Towers\bullet.xnb
+C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Towers\generic tower.xnb

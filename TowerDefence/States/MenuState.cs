@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using TowerDefence.Components;
 using TowerDefence.Controls;
 
 namespace TowerDefence.States
@@ -18,7 +19,7 @@ namespace TowerDefence.States
 
             var loadGameButton = new Button(buttonTexture, buttonFont)
             {
-                Position = new Vector2(1920 / 2 - 412 / 2, 1080 / 2 - 150 / 2 - 150),
+                Position = new Vector2(1920 / 2 - 412 / 2, 1080 / 2 - 150 / 2 - 300),
                 Text = "Уровни"
             };
 
@@ -26,13 +27,21 @@ namespace TowerDefence.States
 
             var quitGameButton = new Button(buttonTexture, buttonFont) 
             { 
-                Position = new Vector2(1920 / 2 - 412 / 2, 1080 / 2 - 150 / 2 + 150), 
+                Position = new Vector2(1920 / 2 - 412 / 2, 1080 / 2 - 150 / 2 + 300), 
                 Text = "Выход" 
             };
 
             quitGameButton.Click += ClickExitButton;
 
-            this.components = new List<Component>() { loadGameButton, quitGameButton };
+            var testGameButton = new Button(buttonTexture, buttonFont)
+            {
+                Position = new Vector2(1920 / 2 - 412 / 2, 1080 / 2 - 50),
+                Text = "Тест"
+            };
+
+            testGameButton.Click += ClickTestButton;
+
+            this.components = new List<Component>() { loadGameButton, quitGameButton, testGameButton };
         }
 
         public override void Update(GameTime gameTime)
@@ -57,12 +66,17 @@ namespace TowerDefence.States
 
         private void ClickLoadButton(object sender, EventArgs e)
         {
-            game.ChangeState(new GameState(game, graphicsDevice, contentManager));
+            game.ChangeState(new LevelLoadState(game, graphicsDevice, contentManager));
         }
 
         private void ClickExitButton(object sender, EventArgs e)
         {
             game.Exit();
+        }
+
+        private void ClickTestButton(object sender, EventArgs e)
+        {
+            game.ChangeState(new GameState(game, graphicsDevice, contentManager, 0));
         }
     }
 }

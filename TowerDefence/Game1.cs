@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using TowerDefence.Components;
 using TowerDefence.States;
 
 namespace TowerDefence
@@ -27,6 +28,7 @@ namespace TowerDefence
         {
             graphics.PreferredBackBufferWidth = 1920;
             graphics.PreferredBackBufferHeight = 1080;
+            MapCell.Content = Content;
             graphics.ApplyChanges();
             base.Initialize();
         }

@@ -4,10 +4,24 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
+    <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Cells/grass.png</File>
+    <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Cells/purpleBlock.png</File>
+    <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Cells/wall.png</File>
     <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Controls/button.png</File>
+    <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Controls/sell.png</File>
+    <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Controls/upgrade.png</File>
     <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Fonts/Font.spritefont</File>
+    <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Towers/bullet.png</File>
+    <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Towers/generic tower.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
   </DestFiles>
