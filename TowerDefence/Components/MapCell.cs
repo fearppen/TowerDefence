@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using TowerDefence.Managers;
 
 namespace TowerDefence.Components
 {
@@ -20,7 +21,7 @@ namespace TowerDefence.Components
     public class MapCell : Component
     {
         public readonly CellTypes CellType;
-        public readonly Rectangle rectangle;
+        public readonly Rectangle Rectangle;
         private readonly Texture2D texture;
         public static ContentManager Content;
 
@@ -28,12 +29,12 @@ namespace TowerDefence.Components
         {
             CellType = cellType;
             texture = GetTextureByCellType(CellType);
-            this.rectangle = rectangle;
+            Rectangle = rectangle;
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, rectangle, Color.White);
+            spriteBatch.Draw(texture, Rectangle, Color.White);
         }
 
         public override void Update(GameTime gameTime)
@@ -42,16 +43,16 @@ namespace TowerDefence.Components
 
         private Texture2D GetTextureByCellType(CellTypes cellType)
         {
-            if (cellType == CellTypes.EmptyCell) 
+            if (cellType == CellTypes.EmptyCell)
             {
-                return Content.Load<Texture2D>("Cells/grass");
+                return TextureManager.GrassTexture;
             }
 
             else if (cellType == CellTypes.TowerCell)
             {
-                return Content.Load<Texture2D>("Cells/purpleBlock");
+                return TextureManager.TowerBlockTexture;
             }
-            return Content.Load<Texture2D>("Cells/wall");
+            return TextureManager.WallTexture;
         }
     }
 }

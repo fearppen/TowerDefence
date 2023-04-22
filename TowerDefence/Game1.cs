@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using TowerDefence.Components;
+using TowerDefence.Managers;
 using TowerDefence.States;
 
 namespace TowerDefence
@@ -28,7 +28,7 @@ namespace TowerDefence
         {
             graphics.PreferredBackBufferWidth = 1920;
             graphics.PreferredBackBufferHeight = 1080;
-            MapCell.Content = Content;
+            graphics.IsFullScreen = false;
             graphics.ApplyChanges();
             base.Initialize();
         }
@@ -36,11 +36,13 @@ namespace TowerDefence
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            TextureManager.InitTexture(Content);
             currentState = new MenuState(this, graphics.GraphicsDevice, Content);
         }
 
         protected override void Update(GameTime gameTime)
         {
+            MouseManager.Update();
             if (nextState != null)
             {
                 currentState = nextState;
@@ -54,10 +56,12 @@ namespace TowerDefence
 
         protected override void Draw(GameTime gameTime)
         {
+            spriteBatch.Begin();
             GraphicsDevice.Clear(Color.CornflowerBlue);
             currentState.Draw(gameTime, spriteBatch);
 
             base.Draw(gameTime);
+            spriteBatch.End();
         }
     }
 }

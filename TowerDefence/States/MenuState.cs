@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using TowerDefence.Components;
-using TowerDefence.Controls;
+using static TowerDefence.Managers.TextureManager;
 
 namespace TowerDefence.States
 {
@@ -14,8 +14,8 @@ namespace TowerDefence.States
 
         public MenuState(Game1 game, GraphicsDevice graphics, ContentManager content) : base(game, graphics, content)
         {
-            var buttonTexture = content.Load<Texture2D>("Controls/Button");
-            var buttonFont = content.Load<SpriteFont>("Fonts/Font");
+            var buttonTexture = ButtonMenuTexture;
+            var buttonFont = Font;
 
             var loadGameButton = new Button(buttonTexture, buttonFont)
             {
@@ -41,7 +41,7 @@ namespace TowerDefence.States
 
             testGameButton.Click += ClickTestButton;
 
-            this.components = new List<Component>() { loadGameButton, quitGameButton, testGameButton };
+            components = new List<Component>() { loadGameButton, quitGameButton, testGameButton };
         }
 
         public override void Update(GameTime gameTime)
@@ -54,14 +54,11 @@ namespace TowerDefence.States
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin();
-
             foreach (var component in components)
             {
                 component.Draw(gameTime, spriteBatch);
             }
 
-            spriteBatch.End();
         }
 
         private void ClickLoadButton(object sender, EventArgs e)

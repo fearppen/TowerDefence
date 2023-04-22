@@ -1,3 +1,9 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"C:/Users/anton/source/repos/TowerDefence/TowerDefence/Content/Controls/button.png","C:/Users/anton/source/repos/TowerDefence/TowerDefence/Content/bin/Windows/Controls/button.xnb","TextureProcessor","Texture2DContent",277897,1714385,0,2177762
-"C:/Users/anton/source/repos/TowerDefence/TowerDefence/Content/Fonts/Font.spritefont","C:/Users/anton/source/repos/TowerDefence/TowerDefence/Content/bin/Windows/Fonts/Font.xnb","FontDescriptionProcessor","SpriteFontContent",2068,21535,0,1180259
+"C:/Users/anton/TowerDefence/TowerDefence/Content/Cells/grass.png","C:/Users/anton/TowerDefence/TowerDefence/Content/bin/Windows/Cells/grass.xnb","TextureProcessor","Texture2DContent",955,4181,0,1602464
+"C:/Users/anton/TowerDefence/TowerDefence/Content/Cells/purpleBlock.png","C:/Users/anton/TowerDefence/TowerDefence/Content/bin/Windows/Cells/purpleBlock.xnb","TextureProcessor","Texture2DContent",262,4181,0,0036219
+"C:/Users/anton/TowerDefence/TowerDefence/Content/Cells/wall.png","C:/Users/anton/TowerDefence/TowerDefence/Content/bin/Windows/Cells/wall.xnb","TextureProcessor","Texture2DContent",5295,16469,0,0033975
+"C:/Users/anton/TowerDefence/TowerDefence/Content/Controls/button.png","C:/Users/anton/TowerDefence/TowerDefence/Content/bin/Windows/Controls/button.xnb","TextureProcessor","Texture2DContent",47547,247285,0,0127682
+"C:/Users/anton/TowerDefence/TowerDefence/Content/Controls/gameButton.png","C:/Users/anton/TowerDefence/TowerDefence/Content/bin/Windows/Controls/gameButton.xnb","TextureProcessor","Texture2DContent",1877,16469,0,0047623
+"C:/Users/anton/TowerDefence/TowerDefence/Content/Fonts/Font.spritefont","C:/Users/anton/TowerDefence/TowerDefence/Content/bin/Windows/Fonts/Font.xnb","FontDescriptionProcessor","SpriteFontContent",2270,73631,0,1358675
+"C:/Users/anton/TowerDefence/TowerDefence/Content/Towers/bullet.png","C:/Users/anton/TowerDefence/TowerDefence/Content/bin/Windows/Towers/bullet.xnb","TextureProcessor","Texture2DContent",196,4181,0,0029519
+"C:/Users/anton/TowerDefence/TowerDefence/Content/Towers/generic tower.png","C:/Users/anton/TowerDefence/TowerDefence/Content/bin/Windows/Towers/generic tower.xnb","TextureProcessor","Texture2DContent",509,16469,0,0040903

@@ -25,7 +25,7 @@
 /processorParam:TextureFormat=Color
 /build:Cells/grass.png
 
-#begin Cells/purpleBlock.png
+#begin Cells/towerBlock.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -35,7 +35,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Cells/purpleBlock.png
+/build:Cells/towerBlock.png
 
 #begin Cells/wall.png
 /importer:TextureImporter
@@ -61,7 +61,7 @@
 /processorParam:TextureFormat=Color
 /build:Controls/button.png
 
-#begin Controls/sell.png
+#begin Controls/gameButton.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -71,19 +71,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Controls/sell.png
-
-#begin Controls/upgrade.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Controls/upgrade.png
+/build:Controls/gameButton.png
 
 #begin Fonts/Font.spritefont
 /importer:FontDescriptionImporter
@@ -104,7 +92,7 @@
 /processorParam:TextureFormat=Color
 /build:Towers/bullet.png
 
-#begin Towers/generic tower.png
+#begin Towers/genericTower.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -114,5 +102,5 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Towers/generic tower.png
+/build:Towers/genericTower.png
 
