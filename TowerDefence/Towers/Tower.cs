@@ -17,8 +17,9 @@ namespace TowerDefence.Towers
         {
         }
 
-        public override void Update(GameTime gameTime)
+        public override bool Update(GameTime gameTime)
         {
+            return isSold;
         }
 
         public int Sell()

@@ -83,3 +83,5 @@ C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Contro
 C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Cells\towerBlock.xnb
 C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Towers\genericTower.xnb
 C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Levels\0.txt
+C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Other\block.xnb
+C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Enemies\vampire.xnb

@@ -8,6 +8,6 @@ namespace TowerDefence.Components
     {
         public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
 
-        public abstract void Update(GameTime gameTime);
+        public abstract bool Update(GameTime gameTime);
     }
 }

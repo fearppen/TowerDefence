@@ -9,11 +9,15 @@
     <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Cells/wall.png</File>
     <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Controls/button.png</File>
     <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Controls/gameButton.png</File>
+    <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Enemies/vampire.png</File>
     <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Fonts/Font.spritefont</File>
+    <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Other/block.png</File>
     <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Towers/bullet.png</File>
     <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Towers/genericTower.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

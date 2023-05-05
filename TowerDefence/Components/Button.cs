@@ -50,7 +50,7 @@ namespace TowerDefence.Components
             }
         }
 
-        public override void Update(GameTime gameTime)
+        public override bool Update(GameTime gameTime)
         {
             isHovering = false;
 
@@ -62,6 +62,12 @@ namespace TowerDefence.Components
                     Click?.Invoke(this, new EventArgs());
                 }
             }
+            return Clicked;
+        }
+
+        public void ClickButton()
+        {
+            Clicked = true;
         }
     }
 }

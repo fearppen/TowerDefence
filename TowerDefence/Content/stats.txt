@@ -1,0 +1,1 @@
+v maxHp:100 speed:2

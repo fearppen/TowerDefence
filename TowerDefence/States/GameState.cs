@@ -16,16 +16,21 @@ namespace TowerDefence.States
         private readonly List<Component> components;
         private readonly List<MapCell> towerCells;
         private readonly List<Tower> towers;
+        private readonly GameEngine engine;
+        private readonly EnemyManager enemyManager;
 
         public GameState(Game1 game, GraphicsDevice graphics, ContentManager content, int levelId) : base(game, graphics, content)
         {
             map = new Map(string.Format(@"..\..\..\Content\Levels\{0}.txt", levelId), 64);
             gold = 100;
             textFont = TextureManager.Font;
-            towerCells = GetAllTowerCells();
             components = new List<Component>();
             towerCells = new List<MapCell>();
             towers = new List<Tower>();
+            engine = new GameEngine();
+            towerCells = engine.GetAllTowerCells(map);
+            enemyManager = new EnemyManager(string.Format(@"..\..\..\Content\Levels\enemies{0}.txt", levelId),
+                map.StartCell, map.EndCell);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -34,26 +39,18 @@ namespace TowerDefence.States
             spriteBatch.DrawString(textFont, string.Format("Золото: {0}", gold), new Vector2(1700, 50), Color.Yellow);
             components?.ForEach(c => c.Draw(gameTime, spriteBatch));
             towers?.ForEach(t => t.Draw(gameTime, spriteBatch));
+            enemyManager.Draw(gameTime, spriteBatch);
         }
 
         public override void Update(GameTime gameTime)
         {
             map.Update(gameTime);
             TowerCellClick();
-            components?.ForEach(component => component.Update(gameTime));
-            towers?.ForEach(t => t.Update(gameTime));
+            components?.RemoveAll(component => component.Update(gameTime));
+            towers?.RemoveAll(t => t.Update(gameTime));
+            enemyManager.Update(gameTime);
         }
 
-        private List<MapCell> GetAllTowerCells()
-        {
-            var cells = new List<MapCell>();
-            foreach (var cell in map.cells)
-            {
-                if (cell.CellType == CellTypes.TowerCell)
-                    cells.Add(cell);
-            }
-            return cells;
-        }
 
         private void TowerCellClick()
         {
@@ -63,20 +60,14 @@ namespace TowerDefence.States
                 if (clickedCell.CellType == CellTypes.TowerCell
                     && !map.IsTowerInThisCell(MouseManager.CurrentMouse.X, MouseManager.CurrentMouse.Y, towers))
                 {
-                    var buyButton = new Button(TextureManager.GameButtonTexture, TextureManager.Font)
-                    {
-                        Position = new Vector2(clickedCell.Rectangle.Left - 128, clickedCell.Rectangle.Top - 100),
-                        Text = "Купить башню"
-                    };
+                    var buyButton = engine.GetButtonByCell(clickedCell);
 
                     buyButton.Click += (o, s) =>
                     {
-                        var tower = new GenericTower(TextureManager.TowerTexture, 
-                            new Rectangle(clickedCell.Rectangle.Left - 32, clickedCell.Rectangle.Top - 32, 
-                            TextureManager.TowerTexture.Width, TextureManager.TowerTexture.Height));
+                        var tower = engine.GetGenericTowerByCell(clickedCell);
                         towers.Add(tower);
                         gold -= tower.Cost;
-                        //components.Clear();
+                        buyButton.ClickButton();
                     };
                     components.Add(buyButton);
                 }

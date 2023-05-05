@@ -37,9 +37,8 @@ namespace TowerDefence.Components
             spriteBatch.Draw(texture, Rectangle, Color.White);
         }
 
-        public override void Update(GameTime gameTime)
-        {
-        }
+        public override bool Update(GameTime gameTime) => false;
+
 
         private Texture2D GetTextureByCellType(CellTypes cellType)
         {

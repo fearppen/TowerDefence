@@ -12,6 +12,8 @@ namespace TowerDefence
     {
         public MapCell[,] cells;
         public int CellSize { get; private set; }
+        public MapCell StartCell { get; private set; }
+        public MapCell EndCell { get; private set; }
 
         public Map(string filePath, int size)
         {
@@ -27,8 +29,16 @@ namespace TowerDefence
             {
                 for (var j = 0; j < data[i].Length; j++)
                 {
-                    var cellType = (CellTypes)(int)(data[i][j] - '0');
+                    var cellType = (CellTypes)(data[i][j] - '0');
                     cells[i, j] = new MapCell(cellType, new Rectangle(j * CellSize, i * CellSize, CellSize, CellSize));
+                    if (cellType == CellTypes.StartCell)
+                    {
+                        StartCell = cells[i, j];
+                    }
+                    else if (cellType == CellTypes.EndCell)
+                    {
+                        EndCell = cells[i, j];
+                    }
                 }
             }
         }
