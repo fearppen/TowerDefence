@@ -85,3 +85,6 @@ C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Towers
 C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Levels\0.txt
 C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Other\block.xnb
 C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Enemies\vampire.xnb
+C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Enemies\orkWalk.xnb
+C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Enemies\orkWalk1.xnb
+C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Enemies\orkWalk2.xnb

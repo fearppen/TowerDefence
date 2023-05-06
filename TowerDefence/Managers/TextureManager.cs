@@ -15,6 +15,7 @@ namespace TowerDefence.Managers
         public static Texture2D BulletTexture { get; private set; }
         public static Texture2D BlockTexture { get; private set; }
         public static Texture2D VampireTexture { get; private set; }
+        public static Texture2D OrkWalkTexture { get; private set; }
 
         public static void InitTexture(ContentManager content)
         {
@@ -28,6 +29,7 @@ namespace TowerDefence.Managers
             BulletTexture = content.Load<Texture2D>("Towers/bullet");
             BlockTexture = content.Load<Texture2D>("Other/block");
             VampireTexture = content.Load<Texture2D>("Enemies/vampire");
+            OrkWalkTexture = content.Load<Texture2D>("Enemies/orkWalk");
         }
     }
 }

@@ -10,24 +10,33 @@ namespace TowerDefence.Managers
     public class EnemyManager
     {
         public List<Enemy.Enemy> Enemies = new ();
-        public List<DelayedAction> DelayedActions;
+        public List<List<DelayedAction>> DelayedActions;
 
         private readonly Dictionary<char, Dictionary<string, int>> enemyStats;
-        private readonly MapCell startCell;
-        private readonly MapCell endCell;
+        private readonly List<MapCell> startCell;
+        private readonly List<MapCell> endCell;
+        private readonly List<List<MapCell>> paths; 
+        private readonly Map map;
 
-        public EnemyManager(string filePath, MapCell startCell, MapCell endCell) 
+        public EnemyManager(string filePath, Map map) 
         {
-            this.startCell = startCell;
+            startCell = map.StartCell;
+            endCell = map.EndCell;
             enemyStats = GetEnemyStats();
-            this.endCell = endCell;
+            this.map = map;
+            paths = new List<List<MapCell>>();
+            foreach (var start in startCell)
+            {
+                paths.Add(map.GetPathFromCell(start));
+            }
             DelayedActions = GetDelayedActions(filePath);
         }
 
-        public void Update(GameTime gameTime)
+        public bool Update(GameTime gameTime, int waveNumber)
         {
-            DelayedActions?.RemoveAll(a => a.Update(gameTime));
+            DelayedActions?[waveNumber].RemoveAll(a => a.Update(gameTime));
             Enemies?.RemoveAll(e => e.Update(gameTime));
+            return Enemies.Count == 0 && DelayedActions[waveNumber].Count == 0;
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -54,23 +63,40 @@ namespace TowerDefence.Managers
             return stats;
         }
 
-        private List<DelayedAction> GetDelayedActions(string filePath)
+        private List<List<DelayedAction>> GetDelayedActions(string filePath)
         {
-            var delayedActions = new List<DelayedAction>();
-            var data = File.ReadAllText(filePath);
+            var delayedActions = new List<List<DelayedAction>>();
+            var data = File.ReadAllLines(filePath);
             for (var i = 0; i < data.Length; i++)
             {
-                var enemyType = data[i];
-                var texture = enemyType switch
+                var wave = data[i].Split();
+                var enemies = new List<DelayedAction>();
+                for (var j = 0; j < wave.Length; j++)
                 {
-                    'v' => VampireTexture,
-                    _ => VampireTexture,
-                };
-                delayedActions.Add(new DelayedAction(() =>
-                    Enemies.Add(new Enemy.Enemy(enemyStats[enemyType]["maxHp"],
-                    enemyStats[enemyType]["speed"],
-                    texture,
-                    new Point(startCell.Rectangle.Left, startCell.Rectangle.Right))), 2000 * (i + 1)));
+                    for (var k = 0; k < wave[j].Length; k++)
+                    {
+                        var enemyType = wave[j][k];
+                        var index = j;
+                        var currentPath = new List<MapCell>(paths[index]);
+
+                        var texture = enemyType switch
+                        {
+                            'v' => new List<Texture2D>() { VampireTexture },
+                            'o' => new List<Texture2D>() { OrkWalkTexture },
+                            _ => new List<Texture2D>() { VampireTexture },
+                        };
+
+                        enemies.Add(new DelayedAction(() =>
+                            Enemies.Add(new Enemy.Enemy(enemyStats[enemyType]["maxHp"],
+                            enemyStats[enemyType]["speed"],
+                            texture,
+                            new Point(startCell[index].Rectangle.Left, startCell[index].Rectangle.Top + 32),
+                            currentPath)),
+                            2000 * (k + 1)));
+                    }
+
+                delayedActions.Add(enemies);
+                }
             }
 
             return delayedActions;

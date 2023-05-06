@@ -7,15 +7,16 @@ namespace TowerDefence.Components
 {
     public enum CellTypes
     {
-        EmptyCell,
-        PathLeftCell,
-        PathRightCell,
-        PathBottomCell,
-        PathRightLeftCell,
-        PathRightLeftBottomCell,
-        StartCell,
-        EndCell,
-        TowerCell,
+        EmptyCell = 0,
+        PathLeftCell = 1,
+        PathRightCell = 2,
+        PathBottomCell = 3,
+        PathRightLeftCell = 4,
+        PathRightLeftBottomCell = 5,
+        StartCell = 6,
+        EndCell = 7,
+        TowerCell = 8,
+        PathTopCell = 9,
     }
 
     public class MapCell : Component

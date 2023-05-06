@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.IO;
 using TowerDefence.Components;
@@ -12,8 +13,8 @@ namespace TowerDefence
     {
         public MapCell[,] cells;
         public int CellSize { get; private set; }
-        public MapCell StartCell { get; private set; }
-        public MapCell EndCell { get; private set; }
+        public List<MapCell> StartCell { get; private set; }
+        public List<MapCell> EndCell { get; private set; }
 
         public Map(string filePath, int size)
         {
@@ -25,6 +26,8 @@ namespace TowerDefence
         {
             var data = File.ReadAllLines(filePath);
             cells = new MapCell[data.Length, data[0].Length];
+            StartCell = new List<MapCell>();
+            EndCell = new List<MapCell>();
             for (var i = 0; i < data.Length; i++) 
             {
                 for (var j = 0; j < data[i].Length; j++)
@@ -33,11 +36,11 @@ namespace TowerDefence
                     cells[i, j] = new MapCell(cellType, new Rectangle(j * CellSize, i * CellSize, CellSize, CellSize));
                     if (cellType == CellTypes.StartCell)
                     {
-                        StartCell = cells[i, j];
+                        StartCell.Add(cells[i, j]);
                     }
                     else if (cellType == CellTypes.EndCell)
                     {
-                        EndCell = cells[i, j];
+                        EndCell.Add(cells[i, j]);
                     }
                 }
             }
@@ -61,7 +64,7 @@ namespace TowerDefence
 
         public MapCell GetCellByCoords(double x, double y)
         {
-            return cells[(int)Math.Floor(y / CellSize), (int)Math.Floor(x / CellSize)];
+            return InBounds(x, y) ? cells[(int)Math.Floor(y / CellSize), (int)Math.Floor(x / CellSize)] : StartCell[0];
         }
 
         public bool IsTowerInThisCell(double x, double y, List<Tower> towers)
@@ -73,6 +76,59 @@ namespace TowerDefence
                     return true;
             }
             return false;
+        }
+
+        public bool InBounds(double x, double y)
+        {
+            return (x >= 0 && x <= 1920 && y >= 0 && y <= 1080);
+        }
+
+        public List<MapCell> GetNearestPathCells(MapCell cell)
+        {
+            var pathCells = new List<MapCell>();
+            for (var dx = -1; dx <= 1; dx++)
+            {
+                for (var dy = -1; dy <= 1; dy++)
+                {
+                    if (Math.Abs(dx) + Math.Abs(dy) == 1)
+                    {
+                        var newCell = GetCellByCoords(cell.Rectangle.Center.X + dx * CellSize, cell.Rectangle.Center.Y + dy * CellSize);
+                        if (newCell.CellType == CellTypes.PathTopCell
+                            || newCell.CellType == CellTypes.PathBottomCell
+                            || newCell.CellType == CellTypes.PathLeftCell
+                            || newCell.CellType == CellTypes.PathRightCell
+                            || newCell.CellType == CellTypes.PathRightLeftCell
+                            || newCell.CellType == CellTypes.PathRightLeftBottomCell)
+                            pathCells.Add(newCell);
+                    }    
+                }
+            }
+
+            return pathCells;
+        }
+
+        public List<MapCell> GetPathFromCell(MapCell cell)
+        {
+            var path = new List<MapCell>();
+
+            var stack = new Stack<MapCell>();
+            stack.Push(cell);
+            while (stack.Count > 0)
+            {
+                var cellToOpen = stack.Pop();
+                if (cellToOpen == null || cellToOpen.CellType == CellTypes.EndCell ) 
+                    break;
+                path.Add(cellToOpen);
+
+                var nextCells = GetNearestPathCells(cellToOpen);
+                foreach (var nextCell in nextCells)
+                {
+                    if (path.Contains(nextCell)) continue;
+                    stack.Push(nextCell);
+                }
+            }
+
+            return path;
         }
     }
 }

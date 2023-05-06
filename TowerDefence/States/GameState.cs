@@ -18,6 +18,7 @@ namespace TowerDefence.States
         private readonly List<Tower> towers;
         private readonly GameEngine engine;
         private readonly EnemyManager enemyManager;
+        private int waveNumber;
 
         public GameState(Game1 game, GraphicsDevice graphics, ContentManager content, int levelId) : base(game, graphics, content)
         {
@@ -29,8 +30,7 @@ namespace TowerDefence.States
             towers = new List<Tower>();
             engine = new GameEngine();
             towerCells = engine.GetAllTowerCells(map);
-            enemyManager = new EnemyManager(string.Format(@"..\..\..\Content\Levels\enemies{0}.txt", levelId),
-                map.StartCell, map.EndCell);
+            enemyManager = new EnemyManager(string.Format(@"..\..\..\Content\Levels\enemies{0}.txt", levelId), map);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -48,7 +48,7 @@ namespace TowerDefence.States
             TowerCellClick();
             components?.RemoveAll(component => component.Update(gameTime));
             towers?.RemoveAll(t => t.Update(gameTime));
-            enemyManager.Update(gameTime);
+            enemyManager.Update(gameTime, waveNumber);
         }
 
 
