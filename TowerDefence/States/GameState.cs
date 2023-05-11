@@ -30,7 +30,7 @@ namespace TowerDefence.States
             towers = new List<Tower>();
             engine = new GameEngine();
             towerCells = engine.GetAllTowerCells(map);
-            enemyManager = new EnemyManager(string.Format(@"..\..\..\Content\Levels\enemies{0}.txt", levelId), map);
+            enemyManager = new EnemyManager(string.Format(@"..\..\..\Content\Levels\enemies{0}.txt", levelId), map, engine);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

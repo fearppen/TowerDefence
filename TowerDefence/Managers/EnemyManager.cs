@@ -17,11 +17,13 @@ namespace TowerDefence.Managers
         private readonly List<MapCell> endCell;
         private readonly List<List<MapCell>> paths; 
         private readonly Map map;
+        private readonly GameEngine gameEngine;
 
-        public EnemyManager(string filePath, Map map) 
+        public EnemyManager(string filePath, Map map, GameEngine gameEngine)
         {
             startCell = map.StartCell;
             endCell = map.EndCell;
+            this.gameEngine = gameEngine;
             enemyStats = GetEnemyStats();
             this.map = map;
             paths = new List<List<MapCell>>();
@@ -79,20 +81,7 @@ namespace TowerDefence.Managers
                         var index = j;
                         var currentPath = new List<MapCell>(paths[index]);
 
-                        var texture = enemyType switch
-                        {
-                            'v' => new List<Texture2D>() { VampireTexture },
-                            'o' => new List<Texture2D>() { OrkWalkTexture },
-                            _ => new List<Texture2D>() { VampireTexture },
-                        };
-
-                        enemies.Add(new DelayedAction(() =>
-                            Enemies.Add(new Enemy.Enemy(enemyStats[enemyType]["maxHp"],
-                            enemyStats[enemyType]["speed"],
-                            texture,
-                            new Point(startCell[index].Rectangle.Left, startCell[index].Rectangle.Top + 32),
-                            currentPath)),
-                            2000 * (k + 1)));
+                        enemies.Add(gameEngine.GetDelayedActionEnemy(enemyStats, enemyType, startCell[j], currentPath, (k + 1) * 2000, Enemies));
                     }
 
                 delayedActions.Add(enemies);
