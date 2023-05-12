@@ -8,17 +8,15 @@ namespace TowerDefence.States
     {
         protected Game1 game;
         protected GraphicsDevice graphicsDevice;
-        protected ContentManager contentManager;
 
         public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
 
         public abstract void Update(GameTime gameTime);
 
-        public State(Game1 game, GraphicsDevice graphicsDevice, ContentManager content)
+        public State(Game1 game, GraphicsDevice graphicsDevice)
         {
             this.game = game;
             this.graphicsDevice = graphicsDevice;
-            this.contentManager = content;
         }
     }
 }

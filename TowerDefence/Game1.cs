@@ -26,8 +26,8 @@ namespace TowerDefence
 
         protected override void Initialize()
         {
-            graphics.PreferredBackBufferWidth = 1920;
-            graphics.PreferredBackBufferHeight = 1080;
+            graphics.PreferredBackBufferWidth = Constans.WindowWidth;
+            graphics.PreferredBackBufferHeight = Constans.WindowHight;
             graphics.IsFullScreen = false;
             graphics.ApplyChanges();
             base.Initialize();
@@ -37,7 +37,7 @@ namespace TowerDefence
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             TextureManager.InitTexture(Content);
-            currentState = new MenuState(this, graphics.GraphicsDevice, Content);
+            currentState = new MenuState(this, graphics.GraphicsDevice);
         }
 
         protected override void Update(GameTime gameTime)

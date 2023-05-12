@@ -11,13 +11,11 @@ namespace TowerDefence
     public class Map
     {
         public MapCell[,] cells;
-        public int CellSize { get; private set; }
         public List<MapCell> StartCell { get; private set; }
         public List<MapCell> EndCell { get; private set; }
 
         public Map(string filePath, int size)
         {
-            CellSize = size;
             Generate(filePath);
         }
 
@@ -32,7 +30,8 @@ namespace TowerDefence
                 for (var j = 0; j < data[i].Length; j++)
                 {
                     var cellType = (CellTypes)(data[i][j] - '0');
-                    cells[i, j] = new MapCell(cellType, new Rectangle(j * CellSize, i * CellSize, CellSize, CellSize));
+                    cells[i, j] = new MapCell(cellType, new Rectangle(j * Constans.CellSize, i * Constans.CellSize, 
+                        Constans.CellSize, Constans.CellSize));
                     if (cellType == CellTypes.StartCell)
                     {
                         StartCell.Add(cells[i, j]);
@@ -63,7 +62,7 @@ namespace TowerDefence
 
         public MapCell GetCellByCoords(double x, double y)
         {
-            return InBounds(x, y) ? cells[(int)Math.Floor(y / CellSize), (int)Math.Floor(x / CellSize)] : StartCell[0];
+            return InBounds(x, y) ? cells[(int)Math.Floor(y / Constans.CellSize), (int)Math.Floor(x / Constans.CellSize)] : StartCell[0];
         }
 
         public bool IsTowerInThisCell(double x, double y, List<Tower> towers)
@@ -79,7 +78,7 @@ namespace TowerDefence
 
         public bool InBounds(double x, double y)
         {
-            return (x >= 0 && x <= 1920 && y >= 0 && y <= 1080);
+            return (x >= 0 && x <= Constans.WindowWidth && y >= 0 && y <= Constans.WindowHight);
         }
 
         public List<MapCell> GetNearestPathCells(MapCell cell)
@@ -91,7 +90,8 @@ namespace TowerDefence
                 {
                     if (Math.Abs(dx) + Math.Abs(dy) == 1)
                     {
-                        var newCell = GetCellByCoords(cell.Rectangle.Center.X + dx * CellSize, cell.Rectangle.Center.Y + dy * CellSize);
+                        var newCell = GetCellByCoords(cell.Rectangle.Center.X + dx * Constans.CellSize,
+                            cell.Rectangle.Center.Y + dy * Constans.CellSize);
                         if (newCell.CellType == CellTypes.PathTopCell
                             || newCell.CellType == CellTypes.PathBottomCell
                             || newCell.CellType == CellTypes.PathLeftCell

@@ -1,10 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 using TowerDefence.Components;
-using static TowerDefence.Managers.TextureManager;
 
 namespace TowerDefence.States
 {
@@ -12,34 +9,13 @@ namespace TowerDefence.States
     {
         private List<Component> components;
 
-        public MenuState(Game1 game, GraphicsDevice graphics, ContentManager content) : base(game, graphics, content)
+        public MenuState(Game1 game, GraphicsDevice graphics) : base(game, graphics)
         {
-            var buttonTexture = ButtonMenuTexture;
-            var buttonFont = Font;
+            var loadGameButton = GameEngine.GetLoadGameMenuButton(game, graphics);
 
-            var loadGameButton = new Button(buttonTexture, buttonFont)
-            {
-                Position = new Vector2(1920 / 2 - 412 / 2, 1080 / 2 - 150 / 2 - 300),
-                Text = "Уровни"
-            };
+            var quitGameButton = GameEngine.GetExitMenuButton(game, graphics);
 
-            loadGameButton.Click += ClickLoadButton;
-
-            var quitGameButton = new Button(buttonTexture, buttonFont) 
-            { 
-                Position = new Vector2(1920 / 2 - 412 / 2, 1080 / 2 - 150 / 2 + 300), 
-                Text = "Выход" 
-            };
-
-            quitGameButton.Click += ClickExitButton;
-
-            var testGameButton = new Button(buttonTexture, buttonFont)
-            {
-                Position = new Vector2(1920 / 2 - 412 / 2, 1080 / 2 - 50),
-                Text = "Тест"
-            };
-
-            testGameButton.Click += ClickTestButton;
+            var testGameButton = GameEngine.GetTestMenuButton(game, graphics);
 
             components = new List<Component>() { loadGameButton, quitGameButton, testGameButton };
         }
@@ -58,22 +34,6 @@ namespace TowerDefence.States
             {
                 component.Draw(gameTime, spriteBatch);
             }
-
-        }
-
-        private void ClickLoadButton(object sender, EventArgs e)
-        {
-            game.ChangeState(new LevelLoadState(game, graphicsDevice, contentManager));
-        }
-
-        private void ClickExitButton(object sender, EventArgs e)
-        {
-            game.Exit();
-        }
-
-        private void ClickTestButton(object sender, EventArgs e)
-        {
-            game.ChangeState(new GameState(game, graphicsDevice, contentManager, 0));
         }
     }
 }

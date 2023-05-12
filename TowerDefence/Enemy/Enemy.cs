@@ -21,12 +21,12 @@ namespace TowerDefence.Enemy
         public int maxHp;
         public int speed;
         public Point position;
-        private const int SpriteSize = 64;
+        public bool IsDead;
+        public MapCell currentCell;
         private Directions direction;
         private Color color;
         private AnimationManager animationManager;
         private List<MapCell> path;
-        private MapCell currentCell;
 
         public Rectangle Rectangle { get { return new Rectangle(position.X, 
             position.Y - animationManager.CurrentAnimation.FrameHeight,
@@ -46,7 +46,7 @@ namespace TowerDefence.Enemy
             color = Color.White;
             direction = ConvertDirection(path[1].CellType);
             animationManager = new AnimationManager();
-            animationManager.AddAnimation("walk", new Animation(textures[0], 7, 100, SpriteSize, SpriteSize));
+            animationManager.AddAnimation("walk", new Animation(textures[0], 7, 100, Constans.EnemySpriteSize, Constans.EnemySpriteSize));
         }
 
         public void Damage(int damage)
@@ -58,10 +58,13 @@ namespace TowerDefence.Enemy
         {
             if (currentHp <= 0)
             {
+                IsDead = true;
+                GameStats.Gold += Constans.GoldForEnemy;
                 return true;
             }
-            if (Math.Abs(currentCell.Rectangle.Center.X - Rectangle.Center.X) >= 64
-                    || Math.Abs(currentCell.Rectangle.Center.Y - Rectangle.Center.Y) >= 64)
+
+            if (Math.Abs(currentCell.Rectangle.Center.X - Rectangle.Center.X) >= Constans.CellSize
+                    || Math.Abs(currentCell.Rectangle.Center.Y - Rectangle.Center.Y) >= Constans.CellSize)
             {
                 if (path.Count > 0)
                 {
@@ -69,8 +72,17 @@ namespace TowerDefence.Enemy
                     path.Remove(currentCell);
                     direction = ConvertDirection(currentCell.CellType);
                 }
-            }
+                else
+                {
+                    if (GameStats.Healths > 0)
+                    {
+                        GameStats.Healths--;
+                    }
 
+                    IsDead = true;
+                    return true;
+                }
+            }
             position += direction switch
             {
                 Directions.Up => new Point(0, -speed),
@@ -78,9 +90,7 @@ namespace TowerDefence.Enemy
                 Directions.Left => new Point(-speed, 0),
                 _ => new Point(speed, 0),
             };
-            /*if (position.X < 0 || position.Y >= 1920 || position.Y < 0 || position.Y > 1080)
-                return true;
-*/
+      
             animationManager.CurrentAnimation.Update(gameTime);
             return false;
         }

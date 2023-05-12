@@ -11,15 +11,10 @@ namespace TowerDefence.Towers
     {
         public int Cost { get; internal set; }
         public Rectangle Rectangle { get; internal set; }
-        private bool isSold = false;
+        internal bool isSold = false;
 
         public Tower(Texture2D texture, Rectangle rectangle)
         {
-        }
-
-        public override bool Update(GameTime gameTime)
-        {
-            return isSold;
         }
 
         public int Sell()
@@ -28,9 +23,13 @@ namespace TowerDefence.Towers
             return Cost;
         }
 
-        public abstract void Update();
+        public abstract void Attack(List<Enemy.Enemy> enemies, List<Projectile> projectiles, double elapsedTime);
 
-        public abstract List<Projectile> Attack(List<Enemy.Enemy> enemies);
+        public abstract void Upgrade();
 
+        public override bool Update(GameTime gameTime)
+        {
+            return isSold;
+        }
     }
 }
