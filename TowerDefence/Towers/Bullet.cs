@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace TowerDefence.Towers
 {
@@ -10,7 +9,7 @@ namespace TowerDefence.Towers
         private readonly int damage; 
         public Rectangle Rectangle { get { return new Rectangle(position.X, position.Y, texture.Width, texture.Height); } }
         private Point position;
-        private Texture2D texture;
+        private readonly Texture2D texture;
 
         public Bullet(Texture2D texture, Point position, int damage, Enemy.Enemy enemy) : base(texture, position) 
         {

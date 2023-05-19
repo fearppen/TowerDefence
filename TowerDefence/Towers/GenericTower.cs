@@ -10,6 +10,7 @@ namespace TowerDefence.Towers
         public int Damage = 15;
         public double speedAttck = 1.5f;
         public int rangeAttack = 200;
+        public int Level = 1;
         public double lastShotTime;
         private Enemy.Enemy enemy;
 
@@ -54,9 +55,11 @@ namespace TowerDefence.Towers
 
         public override void Upgrade()
         {
-            Damage = (int)(Damage * 1.2);
-            speedAttck *= 1.5f;
+            Damage = (int)(Damage * 1.3);
+            speedAttck /= 1.2f;
             rangeAttack += 20;
+            GameStats.Gold -= Cost;
+            Level++;
             Cost *= 2;
         }
     }

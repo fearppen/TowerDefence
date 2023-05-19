@@ -4,6 +4,8 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
+    <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Backgrounds/EndBackground.png</File>
+    <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Backgrounds/MenuBackground.png</File>
     <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Cells/grass.png</File>
     <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Cells/towerBlock.png</File>
     <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Cells/wall.png</File>
@@ -19,6 +21,8 @@
     <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Towers/genericTower.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

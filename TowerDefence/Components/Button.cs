@@ -62,6 +62,7 @@ namespace TowerDefence.Components
                     Click?.Invoke(this, new EventArgs());
                 }
             }
+
             return Clicked;
         }
 

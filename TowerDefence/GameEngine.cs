@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using TowerDefence.Components;
 using TowerDefence.Managers;
@@ -18,8 +19,8 @@ namespace TowerDefence
         {
             var button = new Button(ButtonMenuTexture, Font)
             {
-                Position = new Vector2(Constans.WindowWidth / 2 - ButtonMenuTexture.Width / 2, 
-                Constans.WindowHight / 2 - ButtonMenuTexture.Height),
+                Position = new Vector2(Constans.WindowWidth / 2 - ButtonMenuTexture.Width / 2,
+                Constans.WindowHight / 2 + ButtonMenuTexture.Height),
                 Text = "Выйти в меню",
             };
 
@@ -32,12 +33,25 @@ namespace TowerDefence
             var button = new Button(ButtonMenuTexture, Font)
             {
                 Position = new Vector2(Constans.WindowWidth / 2 - ButtonMenuTexture.Width / 2,
-                Constans.WindowHight / 2 + ButtonMenuTexture.Height),
+                Constans.WindowHight / 2 - ButtonMenuTexture.Height),
                 Text = "Продолжить игру",
             };
 
             button.Click += (o, s) => { GameStats.CurrentState = GameStates.Playing; };
 
+            return button;
+        }
+
+        public static Button GetRestartLevelButton(Game1 game, GraphicsDevice graphics, int levelId)
+        {
+            var button = new Button(ButtonMenuTexture, Font)
+            {
+                Position = new Vector2(Constans.WindowWidth / 2 - ButtonMenuTexture.Width / 2,
+                Constans.WindowHight / 2 - ButtonMenuTexture.Height),
+                Text = "Перезапустить уровень",
+            };
+
+            button.Click += (o, s) => { game.ChangeState(new GameState(game, graphics, levelId)); };
             return button;
         }
 
@@ -96,7 +110,7 @@ namespace TowerDefence
             return WallTexture;
         }
 
-        public static Button GetButtonByCell(MapCell cell, List<Tower> towers)
+        public static Button GetBuyButton(MapCell cell, List<Tower> towers)
         {
             var button = new Button(GameButtonTexture, Font)
             {
@@ -111,8 +125,29 @@ namespace TowerDefence
                 {
                     towers.Add(tower);
                     GameStats.Gold -= tower.Cost;
-                    button.ClickButton();
                 }
+                button.ClickButton();
+            };
+
+            return button;
+        }
+
+        public static Button GetUpdateButton(MapCell cell, List<Tower> towers)
+        {
+            var button = new Button(GameButtonTexture, Font)
+            {
+                Position = new Vector2(cell.Rectangle.Left + Constans.XBuyOffset, cell.Rectangle.Top + Constans.YBuyOffset),
+                Text = "Улучшить"
+            };
+
+            button.Click += (o, s) =>
+            {
+                var tower = GetTowerByCell(towers, cell);
+                if (GameStats.Gold >= tower.Cost)
+                {
+                    tower.Upgrade();
+                }
+                button.ClickButton();
             };
 
             return button;
@@ -120,11 +155,10 @@ namespace TowerDefence
 
         public static GenericTower GetGenericTowerByCell(MapCell cell) 
         {
-            var tower = new GenericTower(TowerTexture,
+            return new GenericTower(TowerTexture,
                             new Rectangle(cell.Rectangle.Left - Constans.CellSize / 2, cell.Rectangle.Top - Constans.CellSize / 2,
                             TowerTexture.Width, TowerTexture.Height));
 
-            return tower;
         }
 
         public static List<MapCell> GetAllTowerCells(Map map)
@@ -144,7 +178,7 @@ namespace TowerDefence
             var texture = enemyType switch
             {
                 'v' => new List<Texture2D>() { VampireTexture },
-                'o' => new List<Texture2D>() { OrkWalkTexture },
+                'o' => new List<Texture2D>() { OrkWalkTexture, OrkDieTexture },
                 _ => new List<Texture2D>() { VampireTexture },
             };
 
@@ -212,6 +246,18 @@ namespace TowerDefence
                 + (enemy.Rectangle.Center.Y - rectangle.Center.Y) * (enemy.Rectangle.Center.Y - rectangle.Center.Y)) <= distance)
                 return true;
             return false;
+        }
+
+        public static Tower GetTowerByCell(List<Tower> towers, MapCell cell)
+        {
+            foreach (var  tower in towers)
+            {
+                var centerTowerRectangle = new Rectangle(tower.Rectangle.Center.X, tower.Rectangle.Center.Y, 1, 1);
+                if (centerTowerRectangle.Intersects(cell.Rectangle))
+                    return tower;
+            }
+
+            return null;
         }
     }
 }

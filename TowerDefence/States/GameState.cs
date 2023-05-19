@@ -18,9 +18,11 @@ namespace TowerDefence.States
         private List<Component> components;
         private List<Component> pauseComponents;
         private int waveNumber;
+        private readonly int levelId;
 
         public GameState(Game1 game, GraphicsDevice graphics, int levelId) : base(game, graphics)
         {
+            this.levelId = levelId;
             map = new Map(string.Format(@"..\..\..\Content\Levels\{0}.txt", levelId), Constans.CellSize);
             components = new List<Component>();
             pauseComponents = new List<Component>();
@@ -48,14 +50,22 @@ namespace TowerDefence.States
         {
             TryToPause();
             if (GameStats.Healths <= 0)
-                game.ChangeState(new MenuState(game, graphicsDevice));
+            {
+                game.ChangeState(new EndLevelState(game, graphicsDevice, levelId, false));
+            }
 
             if (GameStats.CurrentState == GameStates.Playing)
             {
                 map.Update(gameTime);
                 TowerCellClick();
                 if (enemyManager.Update(gameTime, waveNumber))
-                    waveNumber++;
+                {
+                    if (enemyManager.MaxWaves == waveNumber + 1)
+                    {
+                        game.ChangeState(new EndLevelState(game, graphicsDevice, levelId, true));
+                    }
+                    waveNumber++; 
+                }
                 projectiles.RemoveAll(p => p.Update(gameTime));
                 components?.RemoveAll(component => component.Update(gameTime));
                 towers?.ForEach(t => t.Attack(enemyManager.Enemies, projectiles, gameTime.TotalGameTime.TotalSeconds));
@@ -77,8 +87,13 @@ namespace TowerDefence.States
                 if (clickedCell.CellType == CellTypes.TowerCell
                     && !map.IsTowerInThisCell(MouseManager.CurrentMouse.X, MouseManager.CurrentMouse.Y, towers))
                 {
-                    var buyButton = GameEngine.GetButtonByCell(clickedCell, towers);
-                    components.Add(buyButton);
+                    components.Add(GameEngine.GetBuyButton(clickedCell, towers));
+                }
+
+                else if (clickedCell.CellType == CellTypes.TowerCell
+                    && map.IsTowerInThisCell(MouseManager.CurrentMouse.X, MouseManager.CurrentMouse.Y, towers))
+                {
+                    components.Add(GameEngine.GetUpdateButton(clickedCell, towers));
                 }
             }
         }

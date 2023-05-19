@@ -10,7 +10,7 @@ namespace TowerDefence.Enemy
     public enum Directions
     {
         Down,
-        Left, 
+        Left,
         Right,
         Up,
     }
@@ -25,15 +25,20 @@ namespace TowerDefence.Enemy
         public MapCell currentCell;
         private Directions direction;
         private Color color;
-        private AnimationManager animationManager;
-        private List<MapCell> path;
+        private readonly AnimationManager animationManager;
+        private readonly List<MapCell> path;
 
-        public Rectangle Rectangle { get { return new Rectangle(position.X, 
+        public Rectangle Rectangle
+        {
+            get
+            {
+                return new Rectangle(position.X,
             position.Y - animationManager.CurrentAnimation.FrameHeight,
             animationManager.CurrentAnimation.FrameWidth,
-            animationManager.CurrentAnimation.FrameHeight); }
+            animationManager.CurrentAnimation.FrameHeight);
+            }
         }
-        
+
         public Enemy(int maxHp, int speed, List<Texture2D> textures, Point position, List<MapCell> path)
         {
             this.maxHp = maxHp;
@@ -46,7 +51,8 @@ namespace TowerDefence.Enemy
             color = Color.White;
             direction = ConvertDirection(path[1].CellType);
             animationManager = new AnimationManager();
-            animationManager.AddAnimation("walk", new Animation(textures[0], 7, 100, Constans.EnemySpriteSize, Constans.EnemySpriteSize));
+            animationManager.AddAnimation("walk",
+                new Animation(textures[0], 7, Constans.FrameTime, Constans.EnemySpriteSize, Constans.EnemySpriteSize));
         }
 
         public void Damage(int damage)
@@ -72,6 +78,7 @@ namespace TowerDefence.Enemy
                     path.Remove(currentCell);
                     direction = ConvertDirection(currentCell.CellType);
                 }
+
                 else
                 {
                     if (GameStats.Healths > 0)
@@ -83,6 +90,7 @@ namespace TowerDefence.Enemy
                     return true;
                 }
             }
+
             position += direction switch
             {
                 Directions.Up => new Point(0, -speed),
@@ -90,7 +98,7 @@ namespace TowerDefence.Enemy
                 Directions.Left => new Point(-speed, 0),
                 _ => new Point(speed, 0),
             };
-      
+
             animationManager.CurrentAnimation.Update(gameTime);
             return false;
         }
@@ -115,19 +123,8 @@ namespace TowerDefence.Enemy
                 CellTypes.PathBottomCell => Directions.Down,
                 CellTypes.PathRightCell => Directions.Right,
                 CellTypes.PathTopCell => Directions.Up,
-               /* CellTypes.PathRightLeftBottomCell => (number % 3) switch
-                {
-                    1 => Directions.Left,
-                    2 => Directions.Right,
-                    _ => Directions.Down,
-                },
-                CellTypes.PathRightLeftCell => (number % 2) switch
-                {
-                    1 => Directions.Right,
-                    _ => Directions.Left,
-                },*/
 
-                _ => Directions.Down,
+                _ => this.direction,
             };
 
             return direction;

@@ -12,5 +12,6 @@
         public const int CellSize = 64;
         public const int EnemySpriteSize = 64;
         public const int GoldForEnemy = 5;
+        public const int FrameTime = 100;
     }
 }

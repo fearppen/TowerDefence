@@ -2,12 +2,13 @@
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using TowerDefence.Components;
+using TowerDefence.Managers;
 
 namespace TowerDefence.States
 {
     public class MenuState : State
     {
-        private List<Component> components;
+        private readonly List<Component> components;
 
         public MenuState(Game1 game, GraphicsDevice graphics) : base(game, graphics)
         {
@@ -30,6 +31,9 @@ namespace TowerDefence.States
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            spriteBatch.Draw(TextureManager.MenuBackground,
+                new Rectangle(0, 0, Constans.WindowWidth, Constans.WindowHight), 
+                Color.White);
             foreach (var component in components)
             {
                 component.Draw(gameTime, spriteBatch);

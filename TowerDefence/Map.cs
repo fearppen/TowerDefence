@@ -124,6 +124,7 @@ namespace TowerDefence
                 {
                     if (path.Contains(nextCell)) continue;
                     stack.Push(nextCell);
+                    break;
                 }
             }
 
