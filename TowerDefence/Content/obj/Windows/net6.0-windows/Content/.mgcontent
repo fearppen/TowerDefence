@@ -6,6 +6,7 @@
   <SourceFiles>
     <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Backgrounds/EndBackground.png</File>
     <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Backgrounds/MenuBackground.png</File>
+    <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Backgrounds/SelectLevelBackground.png</File>
     <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Cells/grass.png</File>
     <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Cells/towerBlock.png</File>
     <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Cells/wall.png</File>
@@ -17,10 +18,19 @@
     <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Enemies/vampire.png</File>
     <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Fonts/Font.spritefont</File>
     <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Other/block.png</File>
-    <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Towers/bullet.png</File>
-    <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Towers/genericTower.png</File>
+    <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Towers/Blast.png</File>
+    <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Towers/BlastTower.png</File>
+    <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Towers/Bullet.png</File>
+    <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Towers/CannonBall.png</File>
+    <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Towers/CannonTower.png</File>
+    <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Towers/GenericTower.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

@@ -6,15 +6,14 @@ namespace TowerDefence.Towers
 {
     public class GenericTower : Tower
     {
-        public Texture2D Texture;
+        public List<Texture2D> Texture;
         public int Damage = 15;
         public double speedAttck = 1.5f;
         public int rangeAttack = 200;
-        public int Level = 1;
         public double lastShotTime;
         private Enemy.Enemy enemy;
 
-        public GenericTower(Texture2D texture, Rectangle rectangle) : base(texture, rectangle)
+        public GenericTower(List<Texture2D> texture, Rectangle rectangle) : base(texture, rectangle)
         {
             Texture = texture;
             Rectangle = rectangle;
@@ -27,7 +26,7 @@ namespace TowerDefence.Towers
             {
                 if (GameEngine.IsInAttackRange(enemy, rangeAttack, Rectangle) && elapsedTime - lastShotTime > speedAttck)
                 {
-                    projectiles.Add(GameEngine.GetBulletProjectile(enemy, Rectangle.Center, Damage));
+                    projectiles.Add(GameEngine.GetProjectile(enemy, Rectangle.Center, Damage, Level));
                     lastShotTime = elapsedTime;
                 }
             }
@@ -38,14 +37,14 @@ namespace TowerDefence.Towers
                 {
                     this.enemy = enemy;
                     lastShotTime = elapsedTime;
-                    projectiles.Add(GameEngine.GetBulletProjectile(enemy, Rectangle.Center, Damage));
+                    projectiles.Add(GameEngine.GetProjectile(enemy, Rectangle.Center, Damage, Level));
                 }
             }
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Texture, Rectangle, Color.White);
+            spriteBatch.Draw(Texture[Level - 1], Rectangle, Color.White);
         }
 
         public override bool Update(GameTime gameTime)

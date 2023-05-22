@@ -90,3 +90,9 @@ C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Enemie
 C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Enemies\orkWalk2.xnb
 C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Backgrounds\MenuBackground.xnb
 C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Backgrounds\EndBackground.xnb
+C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Backgrounds\SelectLevelBackground.xnb
+C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Towers\blast.xnb
+C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Towers\BlastTower.xnb
+C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Towers\cannon ball.xnb
+C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Towers\CannonTower.xnb
+C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Towers\CannonBall.xnb

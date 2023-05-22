@@ -22,7 +22,7 @@ namespace TowerDefence.Components
 
     public class MapCell : Component
     {
-        public readonly CellTypes CellType;
+        public CellTypes CellType;
         public readonly Rectangle Rectangle;
         private readonly Texture2D texture;
 

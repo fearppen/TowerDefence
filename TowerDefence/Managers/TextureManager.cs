@@ -19,6 +19,10 @@ namespace TowerDefence.Managers
         public static Texture2D OrkDieTexture { get; private set; }
         public static Texture2D MenuBackground { get; private set; }
         public static Texture2D EndBackground { get; private set; }
+        public static Texture2D BlastTowerTexture { get; private set; }
+        public static Texture2D BlastTexture { get; private set; }
+        public static Texture2D CannonTowerTexture { get; private set; }
+        public static Texture2D CannonBallTexture { get; private set; }
 
         public static void InitTexture(ContentManager content)
         {
@@ -28,13 +32,17 @@ namespace TowerDefence.Managers
             ButtonMenuTexture = content.Load<Texture2D>("Controls/button");
             GameButtonTexture = content.Load<Texture2D>("Controls/gameButton");
             Font = content.Load<SpriteFont>("Fonts/font");
-            TowerTexture = content.Load<Texture2D>("Towers/genericTower");
-            BulletTexture = content.Load<Texture2D>("Towers/bullet");
             BlockTexture = content.Load<Texture2D>("Other/block");
             VampireTexture = content.Load<Texture2D>("Enemies/vampire");
             OrkWalkTexture = content.Load<Texture2D>("Enemies/orkWalk");
             MenuBackground = content.Load<Texture2D>("Backgrounds/MenuBackground");
             EndBackground = content.Load<Texture2D>("Backgrounds/EndBackground");
+            BlastTowerTexture = content.Load<Texture2D>("Towers/BlastTower");
+            BlastTexture = content.Load<Texture2D>("Towers/Blast");
+            CannonTowerTexture = content.Load<Texture2D>("Towers/CannonTower");
+            CannonBallTexture = content.Load<Texture2D>("Towers/CannonBall");
+            TowerTexture = content.Load<Texture2D>("Towers/GenericTower");
+            BulletTexture = content.Load<Texture2D>("Towers/Bullet");
         }
     }
 }

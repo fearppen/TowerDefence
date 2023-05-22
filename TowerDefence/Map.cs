@@ -97,7 +97,8 @@ namespace TowerDefence
                             || newCell.CellType == CellTypes.PathLeftCell
                             || newCell.CellType == CellTypes.PathRightCell
                             || newCell.CellType == CellTypes.PathRightLeftCell
-                            || newCell.CellType == CellTypes.PathRightLeftBottomCell)
+                            || newCell.CellType == CellTypes.PathRightLeftBottomCell
+                            || newCell.CellType == CellTypes.PathTopCell)
                             pathCells.Add(newCell);
                     }    
                 }
@@ -108,6 +109,8 @@ namespace TowerDefence
 
         public List<MapCell> GetPathFromCell(MapCell cell)
         {
+
+
             var path = new List<MapCell>();
 
             var stack = new Stack<MapCell>();
@@ -115,7 +118,7 @@ namespace TowerDefence
             while (stack.Count > 0)
             {
                 var cellToOpen = stack.Pop();
-                if (cellToOpen == null || cellToOpen.CellType == CellTypes.EndCell ) 
+                if (cellToOpen == null || cellToOpen.CellType == CellTypes.EndCell)
                     break;
                 path.Add(cellToOpen);
 

@@ -112,15 +112,16 @@ namespace TowerDefence
 
         public static Button GetBuyButton(MapCell cell, List<Tower> towers)
         {
+            var tower = GetGenericTowerByCell(cell);
+
             var button = new Button(GameButtonTexture, Font)
             {
                 Position = new Vector2(cell.Rectangle.Left + Constans.XBuyOffset, cell.Rectangle.Top + Constans.YBuyOffset),
-                Text = "Купить башню"
+                Text = string.Format("Купить башню {0}", tower.Cost)
             };
 
             button.Click += (o, s) =>
             {
-                var tower = GameEngine.GetGenericTowerByCell(cell);
                 if (GameStats.Gold >= tower.Cost)
                 {
                     towers.Add(tower);
@@ -134,15 +135,19 @@ namespace TowerDefence
 
         public static Button GetUpdateButton(MapCell cell, List<Tower> towers)
         {
+            var tower = GetTowerByCell(towers, cell);
+
+            if (tower.Level >= 3)
+                return null;
+
             var button = new Button(GameButtonTexture, Font)
             {
                 Position = new Vector2(cell.Rectangle.Left + Constans.XBuyOffset, cell.Rectangle.Top + Constans.YBuyOffset),
-                Text = "Улучшить"
+                Text = string.Format("Улучшить {0}", tower.Cost)
             };
 
             button.Click += (o, s) =>
             {
-                var tower = GetTowerByCell(towers, cell);
                 if (GameStats.Gold >= tower.Cost)
                 {
                     tower.Upgrade();
@@ -155,7 +160,7 @@ namespace TowerDefence
 
         public static GenericTower GetGenericTowerByCell(MapCell cell) 
         {
-            return new GenericTower(TowerTexture,
+            return new GenericTower(new List<Texture2D> { TowerTexture, CannonTowerTexture, BlastTowerTexture },
                             new Rectangle(cell.Rectangle.Left - Constans.CellSize / 2, cell.Rectangle.Top - Constans.CellSize / 2,
                             TowerTexture.Width, TowerTexture.Height));
 
@@ -188,9 +193,16 @@ namespace TowerDefence
                 delay);
         }
 
-        public static Projectile GetBulletProjectile(Enemy.Enemy enemy, Point position, int damage)
+        public static Projectile GetProjectile(Enemy.Enemy enemy, Point position, int damage, int level)
         {
-            return new Bullet(BulletTexture, position, damage, enemy);
+            var texture = level switch
+            {
+                2 => CannonBallTexture,
+                3 => BlastTexture,
+                _ => BulletTexture
+            };
+
+            return new Bullet(texture, position, damage, enemy);
         }
 
         public static Dictionary<char, Dictionary<string, int>> GetEnemyStats()
@@ -230,7 +242,7 @@ namespace TowerDefence
                         var currentPath = new List<MapCell>(paths[index]);
 
                         enemies.Add(GetDelayedActionEnemy(stats, enemyType, startCells[j],
-                            currentPath, (k + 1) * Constans.EnemyDelay, Enemies));
+                            currentPath, (k + 1) * Constans.EnemyDelay / (i + 1) + Constans.DelayFromWaves, Enemies));
                     }
 
                     delayedActions.Add(enemies);

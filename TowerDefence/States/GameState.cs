@@ -93,7 +93,9 @@ namespace TowerDefence.States
                 else if (clickedCell.CellType == CellTypes.TowerCell
                     && map.IsTowerInThisCell(MouseManager.CurrentMouse.X, MouseManager.CurrentMouse.Y, towers))
                 {
-                    components.Add(GameEngine.GetUpdateButton(clickedCell, towers));
+                    var button = GameEngine.GetUpdateButton(clickedCell, towers);
+                    if (button != null)
+                        components.Add(button);
                 }
             }
         }
