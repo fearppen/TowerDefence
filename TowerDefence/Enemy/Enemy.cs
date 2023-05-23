@@ -49,7 +49,7 @@ namespace TowerDefence.Enemy
             currentCell = path[0];
             path.Remove(currentCell);
             color = Color.White;
-            direction = ConvertDirection(path[1].CellType);
+            direction = ConvertDirection(path[0].CellType);
             animationManager = new AnimationManager();
             animationManager.AddAnimation("walk",
                 new Animation(textures[0], 7, Constans.FrameTime, Constans.EnemySpriteSize, Constans.EnemySpriteSize));

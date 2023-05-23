@@ -32,7 +32,7 @@ namespace TowerDefence.States
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(TextureManager.MenuBackground,
-                new Rectangle(0, 0, Constans.WindowWidth, Constans.WindowHight), 
+                new Rectangle(0, 0, Constans.WindowWidth, Constans.WindowHeight), 
                 Color.White);
             foreach (var component in components)
             {

@@ -27,7 +27,7 @@ namespace TowerDefence
         protected override void Initialize()
         {
             graphics.PreferredBackBufferWidth = Constans.WindowWidth;
-            graphics.PreferredBackBufferHeight = Constans.WindowHight;
+            graphics.PreferredBackBufferHeight = Constans.WindowHeight;
             graphics.IsFullScreen = false;
             graphics.ApplyChanges();
             base.Initialize();

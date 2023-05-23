@@ -1,5 +1,4 @@
-o o o
-o o o
-oo oo oo
-o o o
-oo oo oo
+o ooooooooooo o
+o ooo o
+oo o oo
+ooo ooo ooo

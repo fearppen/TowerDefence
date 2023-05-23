@@ -11,34 +11,44 @@ namespace TowerDefence
     public class Map
     {
         public MapCell[,] cells;
-        public List<MapCell> StartCell { get; private set; }
-        public List<MapCell> EndCell { get; private set; }
+        public List<List<List<MapCell>>> Paths;
 
-        public Map(string filePath, int size)
+        public List<MapCell> StartCells { get; private set; }
+        public List<MapCell> EndCells { get; private set; }
+
+        public Map(string filePath)
         {
+            StartCells = new List<MapCell>();
+            EndCells = new List<MapCell>();
+
             Generate(filePath);
+            Paths = new List<List<List<MapCell>>>(StartCells.Count);
+
+            for (var i = 0; i < StartCells.Count; i++) 
+            {
+                Paths.Add(new List<List<MapCell>>());
+                GetPathsFromCell(StartCells[i], new List<MapCell>(), new HashSet<MapCell>(), i);
+            }
         }
 
         public void Generate(string filePath)
         {
             var data = File.ReadAllLines(filePath);
             cells = new MapCell[data.Length, data[0].Length];
-            StartCell = new List<MapCell>();
-            EndCell = new List<MapCell>();
-            for (var i = 0; i < data.Length; i++) 
+            for (var i = 0; i < data.Length; i++)
             {
                 for (var j = 0; j < data[i].Length; j++)
                 {
                     var cellType = (CellTypes)(data[i][j] - '0');
-                    cells[i, j] = new MapCell(cellType, new Rectangle(j * Constans.CellSize, i * Constans.CellSize, 
+                    cells[i, j] = new MapCell(cellType, new Rectangle(j * Constans.CellSize, i * Constans.CellSize,
                         Constans.CellSize, Constans.CellSize));
                     if (cellType == CellTypes.StartCell)
                     {
-                        StartCell.Add(cells[i, j]);
+                        StartCells.Add(cells[i, j]);
                     }
                     else if (cellType == CellTypes.EndCell)
                     {
-                        EndCell.Add(cells[i, j]);
+                        EndCells.Add(cells[i, j]);
                     }
                 }
             }
@@ -55,14 +65,14 @@ namespace TowerDefence
         public void Update(GameTime gameTime)
         {
             foreach (var cell in cells)
-            { 
-                cell.Update(gameTime); 
+            {
+                cell.Update(gameTime);
             }
         }
 
         public MapCell GetCellByCoords(double x, double y)
         {
-            return InBounds(x, y) ? cells[(int)Math.Floor(y / Constans.CellSize), (int)Math.Floor(x / Constans.CellSize)] : StartCell[0];
+            return InBounds(x, y) ? cells[(int)Math.Floor(y / Constans.CellSize), (int)Math.Floor(x / Constans.CellSize)] : null;
         }
 
         public bool IsTowerInThisCell(double x, double y, List<Tower> towers)
@@ -78,10 +88,29 @@ namespace TowerDefence
 
         public bool InBounds(double x, double y)
         {
-            return (x >= 0 && x <= Constans.WindowWidth && y >= 0 && y <= Constans.WindowHight);
+            return (x >= 0 && x <= Constans.WindowWidth && y >= 0 && y <= Constans.WindowHeight);
         }
 
-        public List<MapCell> GetNearestPathCells(MapCell cell)
+        public MapCell GetNearestPathCell(MapCell cell)
+        {
+            var direction = ConvertDirectionToInt(cell);
+            return GetCellByCoords(cell.Rectangle.Center.X + direction.Item1 * Constans.CellSize,
+                cell.Rectangle.Center.Y + direction.Item2 * Constans.CellSize);
+        }
+
+        private (int, int) ConvertDirectionToInt(MapCell cell)
+        {
+            return cell.CellType switch
+            {
+                CellTypes.PathBottomCell => (0, 1),
+                CellTypes.PathTopCell => (0, -1),
+                CellTypes.PathLeftCell => (-1, 0),
+                CellTypes.PathRightCell => (1, 0),
+                _ => ConvertDirectionToInt(GetAllNearestPathCells(cell)[0]),
+            };
+        }
+
+        private List<MapCell> GetAllNearestPathCells(MapCell cell)
         {
             var pathCells = new List<MapCell>();
             for (var dx = -1; dx <= 1; dx++)
@@ -92,6 +121,7 @@ namespace TowerDefence
                     {
                         var newCell = GetCellByCoords(cell.Rectangle.Center.X + dx * Constans.CellSize,
                             cell.Rectangle.Center.Y + dy * Constans.CellSize);
+                        if (newCell == null) continue;
                         if (newCell.CellType == CellTypes.PathTopCell
                             || newCell.CellType == CellTypes.PathBottomCell
                             || newCell.CellType == CellTypes.PathLeftCell
@@ -100,38 +130,46 @@ namespace TowerDefence
                             || newCell.CellType == CellTypes.PathRightLeftBottomCell
                             || newCell.CellType == CellTypes.PathTopCell)
                             pathCells.Add(newCell);
-                    }    
+                    }
                 }
             }
 
             return pathCells;
         }
 
-        public List<MapCell> GetPathFromCell(MapCell cell)
+        public void GetPathsFromCell(MapCell startCell, List<MapCell> result, HashSet<MapCell> visited, int index)
         {
-
-
-            var path = new List<MapCell>();
-
             var stack = new Stack<MapCell>();
-            stack.Push(cell);
-            while (stack.Count > 0)
+            stack.Push(startCell);
+
+            while (stack.Count != 0)
             {
                 var cellToOpen = stack.Pop();
-                if (cellToOpen == null || cellToOpen.CellType == CellTypes.EndCell)
-                    break;
-                path.Add(cellToOpen);
-
-                var nextCells = GetNearestPathCells(cellToOpen);
-                foreach (var nextCell in nextCells)
+                if (cellToOpen.CellType == CellTypes.EndCell || cellToOpen == null)
                 {
-                    if (path.Contains(nextCell)) continue;
-                    stack.Push(nextCell);
                     break;
                 }
+
+                result.Add(cellToOpen);
+                visited.Add(cellToOpen);
+
+                var nextCell = GetNearestPathCell(cellToOpen);
+                if (visited.Contains(nextCell)) continue;
+                if (nextCell.CellType == CellTypes.PathRightLeftBottomCell || nextCell.CellType == CellTypes.PathRightLeftCell)
+                {
+                    GetPathsFromCell(nextCell.CloneWithOtherType(CellTypes.PathLeftCell), 
+                        new List<MapCell>(result), new HashSet<MapCell>(visited), index);
+                    GetPathsFromCell(nextCell.CloneWithOtherType(CellTypes.PathRightCell),
+                        new List<MapCell>(result), new HashSet<MapCell>(visited), index);
+                    if (nextCell.CellType == CellTypes.PathRightLeftBottomCell)
+                        GetPathsFromCell(nextCell.CloneWithOtherType(CellTypes.PathBottomCell),
+                            new List<MapCell>(result), new HashSet<MapCell>(visited), index);
+                    return;
+                }
+                stack.Push(nextCell);
             }
 
-            return path;
+            Paths[index].Add(result);
         }
     }
 }

@@ -14,18 +14,14 @@ namespace TowerDefence.Managers
 
         private readonly Dictionary<char, Dictionary<string, int>> enemyStats;
         private readonly List<MapCell> startCells;
-        private readonly List<List<MapCell>> paths; 
+        private readonly List<List<List<MapCell>>> paths; 
 
         public EnemyManager(string filePath, Map map)
         {
             Enemies = new ();
-            startCells = map.StartCell;
+            startCells = map.StartCells;
             enemyStats = GameEngine.GetEnemyStats();
-            paths = new ();
-            foreach (var start in startCells)
-            {
-                paths.Add(map.GetPathFromCell(start));
-            }
+            paths = map.Paths;
             DelayedActions = GameEngine.GetDelayedActions(filePath, enemyStats, paths, startCells, Enemies);
             MaxWaves = DelayedActions?.Count ?? 0;
         }

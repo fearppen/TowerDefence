@@ -39,5 +39,10 @@ namespace TowerDefence.Components
         }
 
         public override bool Update(GameTime gameTime) => false;
+
+        public MapCell CloneWithOtherType(CellTypes cellType)
+        {
+            return new MapCell(cellType, Rectangle);
+        }
     }
 }

@@ -23,7 +23,7 @@ namespace TowerDefence.States
         public GameState(Game1 game, GraphicsDevice graphics, int levelId) : base(game, graphics)
         {
             this.levelId = levelId;
-            map = new Map(string.Format(@"..\..\..\Content\Levels\{0}.txt", levelId), Constans.CellSize);
+            map = new Map(string.Format(@"..\..\..\Content\Levels\{0}.txt", levelId));
             components = new List<Component>();
             pauseComponents = new List<Component>();
             towers = new List<Tower>();

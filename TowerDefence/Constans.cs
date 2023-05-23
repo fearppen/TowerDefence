@@ -3,7 +3,7 @@
     public static class Constans
     {
         public const int WindowWidth = 1920;
-        public const int WindowHight = 1080;
+        public const int WindowHeight = 1080;
         public const int XBuyOffset = -128;
         public const int YBuyOffset = -100;
         public const int Healths = 10;

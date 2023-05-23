@@ -1,14 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using TowerDefence.Components;
 using TowerDefence.Managers;
 using TowerDefence.States;
 using TowerDefence.Towers;
+
 using static TowerDefence.Managers.TextureManager;
 
 namespace TowerDefence
@@ -20,7 +19,7 @@ namespace TowerDefence
             var button = new Button(ButtonMenuTexture, Font)
             {
                 Position = new Vector2(Constans.WindowWidth / 2 - ButtonMenuTexture.Width / 2,
-                Constans.WindowHight / 2 + ButtonMenuTexture.Height),
+                Constans.WindowHeight / 2 + ButtonMenuTexture.Height),
                 Text = "Выйти в меню",
             };
 
@@ -33,7 +32,7 @@ namespace TowerDefence
             var button = new Button(ButtonMenuTexture, Font)
             {
                 Position = new Vector2(Constans.WindowWidth / 2 - ButtonMenuTexture.Width / 2,
-                Constans.WindowHight / 2 - ButtonMenuTexture.Height),
+                Constans.WindowHeight / 2 - ButtonMenuTexture.Height),
                 Text = "Продолжить игру",
             };
 
@@ -47,7 +46,7 @@ namespace TowerDefence
             var button = new Button(ButtonMenuTexture, Font)
             {
                 Position = new Vector2(Constans.WindowWidth / 2 - ButtonMenuTexture.Width / 2,
-                Constans.WindowHight / 2 - ButtonMenuTexture.Height),
+                Constans.WindowHeight / 2 - ButtonMenuTexture.Height),
                 Text = "Перезапустить уровень",
             };
 
@@ -60,7 +59,7 @@ namespace TowerDefence
             var loadGameButton = new Button(ButtonMenuTexture, Font)
             {
                 Position = new Vector2(Constans.WindowWidth / 2 - ButtonMenuTexture.Width / 2,
-                Constans.WindowHight / 2 - ButtonMenuTexture.Height / 2 - ButtonMenuTexture.Height * 2),
+                Constans.WindowHeight / 2 - ButtonMenuTexture.Height / 2 - ButtonMenuTexture.Height * 2),
                 Text = "Уровни"
             };
 
@@ -73,7 +72,7 @@ namespace TowerDefence
             var quitGameButton = new Button(ButtonMenuTexture, Font)
             {
                 Position = new Vector2(Constans.WindowWidth / 2 - ButtonMenuTexture.Width / 2,
-                Constans.WindowHight / 2 - ButtonMenuTexture.Height / 2 + ButtonMenuTexture.Height * 2),
+                Constans.WindowHeight / 2 - ButtonMenuTexture.Height / 2 + ButtonMenuTexture.Height * 2),
                 Text = "Выход"
             };
 
@@ -87,7 +86,7 @@ namespace TowerDefence
             var testGameButton = new Button(ButtonMenuTexture, Font)
             {
                 Position = new Vector2(Constans.WindowWidth / 2 - ButtonMenuTexture.Width / 2,
-                Constans.WindowHight / 2 - ButtonMenuTexture.Height / 3),
+                Constans.WindowHeight / 2 - ButtonMenuTexture.Height / 3),
                 Text = "Тест"
             };
 
@@ -225,7 +224,7 @@ namespace TowerDefence
         }
 
         public static List<List<DelayedAction>> GetDelayedActions(string filePath, Dictionary<char, Dictionary<string, int>> stats,
-            List<List<MapCell>> paths, List<MapCell> startCells, List<Enemy.Enemy> Enemies)
+            List<List<List<MapCell>>> paths, List<MapCell> startCells, List<Enemy.Enemy> Enemies)
         {
             var delayedActions = new List<List<DelayedAction>>();
             var data = File.ReadAllLines(filePath);
@@ -239,7 +238,7 @@ namespace TowerDefence
                     {
                         var enemyType = wave[j][k];
                         var index = j;
-                        var currentPath = new List<MapCell>(paths[index]);
+                        var currentPath = new List<MapCell>(paths[index][(k + 1) % paths[index].Count]);
 
                         enemies.Add(GetDelayedActionEnemy(stats, enemyType, startCells[j],
                             currentPath, (k + 1) * Constans.EnemyDelay / (i + 1) + Constans.DelayFromWaves, Enemies));
