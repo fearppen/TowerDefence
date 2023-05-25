@@ -1,9 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using TowerDefence.AbstractClasses;
 
 namespace TowerDefence.States
 {
-    internal class LevelLoadState : State
+    public class LevelLoadState : State
     {
         public LevelLoadState(Game1 game, GraphicsDevice graphicsDevice) : base(game, graphicsDevice)
         {

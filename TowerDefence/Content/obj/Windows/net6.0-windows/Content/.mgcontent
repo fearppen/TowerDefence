@@ -12,10 +12,11 @@
     <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Cells/wall.png</File>
     <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Controls/button.png</File>
     <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Controls/gameButton.png</File>
-    <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Enemies/orkWalk.png</File>
-    <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Enemies/orkWalk1.png</File>
-    <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Enemies/orkWalk2.png</File>
-    <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Enemies/vampire.png</File>
+    <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Controls/LevelButton.png</File>
+    <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Enemies/AxeEnemyWalk.png</File>
+    <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Enemies/OrkEnemyWalk.png</File>
+    <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Enemies/SpearEnemyWalk.png</File>
+    <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Enemies/SwordEnemyWalk.png</File>
     <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Fonts/Font.spritefont</File>
     <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Other/block.png</File>
     <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Towers/Blast.png</File>
@@ -26,6 +27,7 @@
     <File>C:/Users/anton/TowerDefence/TowerDefence/Content/Towers/GenericTower.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

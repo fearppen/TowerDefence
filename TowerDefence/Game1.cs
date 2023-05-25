@@ -1,7 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using TowerDefence.Managers;
+using TowerDefence.AbstractClasses;
 using TowerDefence.States;
+using TowerDefence.StaticClasses;
 
 namespace TowerDefence
 {
@@ -26,8 +27,8 @@ namespace TowerDefence
 
         protected override void Initialize()
         {
-            graphics.PreferredBackBufferWidth = Constans.WindowWidth;
-            graphics.PreferredBackBufferHeight = Constans.WindowHeight;
+            graphics.PreferredBackBufferWidth = Constants.WindowWidth;
+            graphics.PreferredBackBufferHeight = Constants.WindowHeight;
             graphics.IsFullScreen = false;
             graphics.ApplyChanges();
             base.Initialize();

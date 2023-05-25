@@ -84,10 +84,6 @@ C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Cells\
 C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Towers\genericTower.xnb
 C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Levels\0.txt
 C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Other\block.xnb
-C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Enemies\vampire.xnb
-C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Enemies\orkWalk.xnb
-C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Enemies\orkWalk1.xnb
-C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Enemies\orkWalk2.xnb
 C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Backgrounds\MenuBackground.xnb
 C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Backgrounds\EndBackground.xnb
 C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Backgrounds\SelectLevelBackground.xnb
@@ -96,3 +92,8 @@ C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Towers
 C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Towers\cannon ball.xnb
 C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Towers\CannonTower.xnb
 C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Towers\CannonBall.xnb
+C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Enemies\AxeEnemyWalk.xnb
+C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Enemies\OrkEnemyWalk.xnb
+C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Enemies\SpearEnemyWalk.xnb
+C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Enemies\SwordEnemyWalk.xnb
+C:\Users\anton\TowerDefence\TowerDefence\bin\Debug\net6.0-windows\Content\Controls\LevelButton.xnb

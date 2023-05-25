@@ -1,56 +1,62 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System.Collections.Generic;
-using TowerDefence.Components;
-using TowerDefence.Managers;
-using TowerDefence.Towers;
-using static TowerDefence.Managers.TextureManager;
+using TowerDefence.AbstractClasses;
+using TowerDefence.Controllers;
+using TowerDefence.Models;
+using TowerDefence.StaticClasses;
+
+using static TowerDefence.StaticClasses.TextureManager;
 
 namespace TowerDefence.States
 {
     public class GameState : State
     {
-        private readonly Map map;
-        private readonly List<Tower> towers;
-        private readonly EnemyManager enemyManager;
-        private readonly List<Projectile> projectiles;
-        private List<Component> components;
-        private List<Component> pauseComponents;
         private int waveNumber;
+        private readonly Map map;
+        private readonly TowerController towerController;
+        private readonly EnemyController enemyController;
+        private readonly ProjectileController projectileController;
+        private readonly ButtonController buttonController;
+        private readonly TextController textController;
         private readonly int levelId;
 
         public GameState(Game1 game, GraphicsDevice graphics, int levelId) : base(game, graphics)
         {
-            this.levelId = levelId;
-            map = new Map(string.Format(@"..\..\..\Content\Levels\{0}.txt", levelId));
-            components = new List<Component>();
-            pauseComponents = new List<Component>();
-            towers = new List<Tower>();
-            projectiles = new List<Projectile>();
-            enemyManager = new EnemyManager(string.Format(@"..\..\..\Content\Levels\enemies{0}.txt", levelId), map);
-            GameStats.Healths = Constans.Healths;
-            GameStats.Gold = Constans.Gold;
+            GameStats.Healths = Constants.Healths;
+            GameStats.Gold = Constants.Gold;
             GameStats.CurrentState = GameStates.Playing;
+
+            this.levelId = levelId;
+
+            map = new Map(string.Format(@"..\..\..\Content\Levels\{0}.txt", levelId));
+            towerController = new TowerController();
+            projectileController = new ProjectileController();
+            buttonController = new ButtonController();
+            enemyController = new EnemyController(string.Format(@"..\..\..\Content\Levels\enemies{0}.txt", levelId), map);
+            textController = new TextController();
+
+            textController.AddHealthsInfoText();
+            textController.AddGoldInfoText();
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             map.Draw(gameTime, spriteBatch);
-            spriteBatch.DrawString(Font, string.Format("Золото: {0}", GameStats.Gold), new Vector2(1750, 980), Color.Yellow);
-            spriteBatch.DrawString(Font, string.Format("Жизни: {0}", GameStats.Healths), new Vector2(1750, 950), Color.White);
-            towers?.ForEach(t => t.Draw(gameTime, spriteBatch));
-            enemyManager.Draw(gameTime, spriteBatch);
-            projectiles?.ForEach(p => p.Draw(gameTime, spriteBatch));
-            components?.ForEach(c => c.Draw(gameTime, spriteBatch));
-            pauseComponents?.ForEach(c => c.Draw(gameTime, spriteBatch));
+            towerController.Draw(gameTime, spriteBatch);
+            enemyController.Draw(gameTime, spriteBatch);
+            projectileController.Draw(gameTime, spriteBatch);
+            buttonController.Draw(gameTime, spriteBatch);
+            textController.Draw(gameTime, spriteBatch);
         }
 
         public override void Update(GameTime gameTime)
         {
             TryToPause();
+            buttonController.Update(gameTime);
             if (GameStats.Healths <= 0)
             {
+                GameStats.CurrentState = GameStates.Intermediate;
                 game.ChangeState(new EndLevelState(game, graphicsDevice, levelId, false));
             }
 
@@ -58,23 +64,20 @@ namespace TowerDefence.States
             {
                 map.Update(gameTime);
                 TowerCellClick();
-                if (enemyManager.Update(gameTime, waveNumber))
+
+                if (enemyController.Update(gameTime, waveNumber))
                 {
-                    if (enemyManager.MaxWaves == waveNumber + 1)
+                    if (enemyController.MaxWaves == waveNumber + 1)
                     {
+                        GameStats.CurrentState = GameStates.Intermediate;
                         game.ChangeState(new EndLevelState(game, graphicsDevice, levelId, true));
                     }
                     waveNumber++; 
                 }
-                projectiles.RemoveAll(p => p.Update(gameTime));
-                components?.RemoveAll(component => component.Update(gameTime));
-                towers?.ForEach(t => t.Attack(enemyManager.Enemies, projectiles, gameTime.TotalGameTime.TotalSeconds));
-                towers?.RemoveAll(t => t.Update(gameTime));
-            }
 
-            else
-            {
-                pauseComponents.ForEach(c => c.Update(gameTime));
+                projectileController.Update(gameTime);
+                towerController.Update(gameTime, projectileController, enemyController.Enemies);
+                textController.Update(gameTime);
             }
         }
 
@@ -85,17 +88,15 @@ namespace TowerDefence.States
             {
                 var clickedCell = map.GetCellByCoords(MouseManager.CurrentMouse.X, MouseManager.CurrentMouse.Y);
                 if (clickedCell.CellType == CellTypes.TowerCell
-                    && !map.IsTowerInThisCell(MouseManager.CurrentMouse.X, MouseManager.CurrentMouse.Y, towers))
+                    && !towerController.IsTheseTowerCoords(MouseManager.CurrentMouse.X, MouseManager.CurrentMouse.Y))
                 {
-                    components.Add(GameEngine.GetBuyButton(clickedCell, towers));
+                    buttonController.AddBuyButton(clickedCell, towerController);
                 }
 
                 else if (clickedCell.CellType == CellTypes.TowerCell
-                    && map.IsTowerInThisCell(MouseManager.CurrentMouse.X, MouseManager.CurrentMouse.Y, towers))
+                    && towerController.IsTheseTowerCoords(MouseManager.CurrentMouse.X, MouseManager.CurrentMouse.Y))
                 {
-                    var button = GameEngine.GetUpdateButton(clickedCell, towers);
-                    if (button != null)
-                        components.Add(button);
+                    buttonController.AddUpgradeButton(clickedCell, towerController);
                 }
             }
         }
@@ -106,15 +107,9 @@ namespace TowerDefence.States
             if (currentKeyboardState.IsKeyDown(Keys.Escape) && GameStats.CurrentState != GameStates.Paused)
             {
                 GameStats.CurrentState = GameStates.Paused;
-                components = new ();
-                pauseComponents = new List<Component>
-                {
-                    GameEngine.GetContinueButton(),
-                    GameEngine.GetGoToMenuButton(game, graphicsDevice),
-                };
+                buttonController.AddContinueButton();
+                buttonController.AddGoToMenuButton(game, graphicsDevice);
             }
-            if (GameStats.CurrentState != GameStates.Paused)
-                pauseComponents?.RemoveAll(c => true);
         }
     }
 }
