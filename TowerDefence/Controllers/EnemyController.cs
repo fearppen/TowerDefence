@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using TowerDefence.Models;
 using TowerDefence.StaticClasses;
-
 using static TowerDefence.StaticClasses.TextureManager;
 
 namespace TowerDefence.Controllers
@@ -35,15 +34,15 @@ namespace TowerDefence.Controllers
             MaxWaves = DelayedActions?.Count ?? 0;
         }
 
-        public bool Update(GameTime gameTime, int waveNumber)
+        public bool Update(GameTime gameTime)
         {
-            if (waveNumber < MaxWaves)
+            if (GameStats.Wave < MaxWaves)
             {
-                DelayedActions?[waveNumber].RemoveAll(a => a.Update(gameTime));
+                DelayedActions?[GameStats.Wave - 1].RemoveAll(a => a.Update(gameTime));
             }
 
             Enemies?.RemoveAll(e => e.Update(gameTime));
-            return Enemies.Count == 0 && DelayedActions[waveNumber].Count == 0;
+            return Enemies.Count == 0 && DelayedActions[GameStats.Wave - 1].Count == 0;
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -87,7 +86,7 @@ namespace TowerDefence.Controllers
                         var currentPath = new List<MapCell>(paths[index][(k + 1) % paths[index].Count]);
 
                         enemies.Add(GetDelayedActionEnemy(enemyType, startCells[j],
-                            currentPath, (k + 1) * EnemyDelay / (i + 1) + DelayFromWaves));
+                            currentPath, (int)((k + 1) * EnemyDelay / (i + 1) * 1.5) + DelayFromWaves));
                     }
 
                     delayedActions.Add(enemies);

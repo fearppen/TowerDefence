@@ -6,8 +6,6 @@ using TowerDefence.Controllers;
 using TowerDefence.Models;
 using TowerDefence.StaticClasses;
 
-using static TowerDefence.StaticClasses.TextureManager;
-
 namespace TowerDefence.States
 {
     public class GameState : State
@@ -25,15 +23,16 @@ namespace TowerDefence.States
         {
             GameStats.Healths = Constants.Healths;
             GameStats.Gold = Constants.Gold;
+            GameStats.Wave = 1;
             GameStats.CurrentState = GameStates.Playing;
 
             this.levelId = levelId;
 
-            map = new Map(string.Format(@"..\..\..\Content\Levels\{0}.txt", levelId));
+            map = new Map(string.Format(@"..\..\..\Content\Levels\{0}\level.txt", levelId));
             towerController = new TowerController();
             projectileController = new ProjectileController();
             buttonController = new ButtonController();
-            enemyController = new EnemyController(string.Format(@"..\..\..\Content\Levels\enemies{0}.txt", levelId), map);
+            enemyController = new EnemyController(string.Format(@"..\..\..\Content\Levels\{0}\enemies.txt", levelId), map);
             textController = new TextController();
 
             textController.AddHealthsInfoText();
@@ -65,14 +64,14 @@ namespace TowerDefence.States
                 map.Update(gameTime);
                 TowerCellClick();
 
-                if (enemyController.Update(gameTime, waveNumber))
+                if (enemyController.Update(gameTime))
                 {
-                    if (enemyController.MaxWaves == waveNumber + 1)
+                    if (enemyController.MaxWaves == GameStats.Wave)
                     {
                         GameStats.CurrentState = GameStates.Intermediate;
                         game.ChangeState(new EndLevelState(game, graphicsDevice, levelId, true));
                     }
-                    waveNumber++; 
+                    GameStats.Wave++; 
                 }
 
                 projectileController.Update(gameTime);

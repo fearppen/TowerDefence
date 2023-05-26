@@ -162,12 +162,13 @@ namespace TowerDefence.Controllers
                 visited.Add(cellToOpen);
 
                 var nextCell = GetNearestPathCell(cellToOpen);
+                if (nextCell == null) break;
                 if (visited.Contains(nextCell)) continue;
                 if (nextCell.CellType == CellTypes.PathRightLeftBottomCell || nextCell.CellType == CellTypes.PathRightLeftCell)
                 {
-                    GetPathsFromCell(nextCell.CloneWithOtherType(CellTypes.PathLeftCell),
-                        new List<MapCell>(result), new HashSet<MapCell>(visited), index);
                     GetPathsFromCell(nextCell.CloneWithOtherType(CellTypes.PathRightCell),
+                        new List<MapCell>(result), new HashSet<MapCell>(visited), index);
+                    GetPathsFromCell(nextCell.CloneWithOtherType(CellTypes.PathLeftCell),
                         new List<MapCell>(result), new HashSet<MapCell>(visited), index);
                     if (nextCell.CellType == CellTypes.PathRightLeftBottomCell)
                         GetPathsFromCell(nextCell.CloneWithOtherType(CellTypes.PathBottomCell),

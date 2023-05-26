@@ -11,9 +11,9 @@ namespace TowerDefence.Models
     public class GenericTower : Tower
     {
         public List<Texture2D> Texture;
-        public int Damage = 15;
-        public double speedAttck = 1.5f;
-        public int rangeAttack = 200;
+        public int Damage = 17;
+        public double reloadTime = 1.5f;
+        public int rangeAttack = 250;
         public double lastShotTime;
         private Enemy enemy;
 
@@ -21,14 +21,14 @@ namespace TowerDefence.Models
         {
             Texture = texture;
             Rectangle = rectangle;
-            Cost = (int)Math.Pow(2, Level) * Constants.TowerCost;
+            Cost = Constants.TowerCost;
         }
 
         public override void Attack(List<Enemy> enemies, ProjectileController projectileController, double elapsedTime)
         {
             if (enemy != null && !enemy.IsDead)
             {
-                if (IsInAttackRange(enemy) && elapsedTime - lastShotTime > speedAttck)
+                if (IsInAttackRange(enemy) && elapsedTime - lastShotTime > reloadTime)
                 {
                     projectileController.AddBullet(enemy, Rectangle.Center, Damage, Level);
                     lastShotTime = elapsedTime;
@@ -37,7 +37,7 @@ namespace TowerDefence.Models
 
             foreach (var enemy in enemies)
             {
-                if (IsInAttackRange(enemy) && elapsedTime - lastShotTime > speedAttck)
+                if (IsInAttackRange(enemy) && elapsedTime - lastShotTime > reloadTime)
                 {
                     this.enemy = enemy;
                     lastShotTime = elapsedTime;
@@ -56,11 +56,16 @@ namespace TowerDefence.Models
             return base.Update(gameTime);
         }
 
+        public void Put()
+        {
+            Cost = Cost = (int)Math.Pow(2, Level) * Constants.TowerCost;
+        }
+
         public override void Upgrade()
         {
             Damage = (int)(Damage * 1.3);
-            speedAttck /= 1.2f;
-            rangeAttack += 20;
+            reloadTime /= 1.2f;
+            rangeAttack += 25;
             GameStats.Gold -= Cost;
             Level++;
             Cost = (int)Math.Pow(2, Level) * Constants.TowerCost;

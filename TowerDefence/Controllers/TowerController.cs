@@ -39,7 +39,8 @@ namespace TowerDefence.Controllers
             if (GameStats.Gold >= tower.Cost)
             {
                 GameStats.Gold -= tower.Cost;
-                towers.Add(tower); 
+                towers.Add(tower);
+                tower.Put();
             }
 
         }

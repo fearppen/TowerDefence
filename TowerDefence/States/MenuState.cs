@@ -17,7 +17,6 @@ namespace TowerDefence.States
 
             backgroundController.SetMenuBackground();
 
-            buttonController.AddTestMenuButton(game, graphics);
             buttonController.AddLoadGameMenuButton(game, graphics);
             buttonController.AddExitMenuButton(game);
         }

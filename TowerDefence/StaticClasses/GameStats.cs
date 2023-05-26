@@ -11,6 +11,7 @@
     {
         public static int Gold;
         public static int Healths;
+        public static int Wave;
         public static GameStates CurrentState;
     }
 }

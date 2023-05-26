@@ -8,24 +8,29 @@ namespace TowerDefence.StaticClasses
         public static Texture2D GrassTexture { get; private set; }
         public static Texture2D TowerBlockTexture { get; private set; }
         public static Texture2D WallTexture { get; private set; }
+
         public static Texture2D ButtonMenuTexture { get; private set; }
         public static Texture2D GameButtonTexture { get; private set; }
-        public static Texture2D LevelTexture { get; private set; }
+        public static Texture2D LevelSelectButtonTexture { get; private set; }
+
         public static SpriteFont Font { get; private set; }
+
         public static Texture2D TowerTexture { get; private set; }
         public static Texture2D BulletTexture { get; private set; }
         public static Texture2D BlockTexture { get; private set; }
-        public static Texture2D OrkWalkTexture { get; private set; }
-        public static Texture2D AxeEnemyWalkTexture { get; private set; }
-        public static Texture2D SpearEnemyWalkTexture { get; private set; }
-        public static Texture2D SwordEnemyWalkTexture { get; private set; }
-        public static Texture2D MenuBackground { get; private set; }
-        public static Texture2D EndBackground { get; private set; }
-        public static Texture2D LevelLoadBackground { get; private set; }
         public static Texture2D BlastTowerTexture { get; private set; }
         public static Texture2D BlastTexture { get; private set; }
         public static Texture2D CannonTowerTexture { get; private set; }
         public static Texture2D CannonBallTexture { get; private set; }
+
+        public static Texture2D OrkWalkTexture { get; private set; }
+        public static Texture2D AxeEnemyWalkTexture { get; private set; }
+        public static Texture2D SpearEnemyWalkTexture { get; private set; }
+        public static Texture2D SwordEnemyWalkTexture { get; private set; }
+
+        public static Texture2D MenuBackground { get; private set; }
+        public static Texture2D EndBackground { get; private set; }
+        public static Texture2D LevelLoadBackground { get; private set; }
 
         public static void InitTexture(ContentManager content)
         {
@@ -34,7 +39,7 @@ namespace TowerDefence.StaticClasses
             WallTexture = content.Load<Texture2D>("Cells/wall");
             ButtonMenuTexture = content.Load<Texture2D>("Controls/button");
             GameButtonTexture = content.Load<Texture2D>("Controls/gameButton");
-            LevelTexture = content.Load<Texture2D>("Controls/LevelButton");
+            LevelSelectButtonTexture = content.Load<Texture2D>("Controls/LevelButton");
             Font = content.Load<SpriteFont>("Fonts/font");
             BlockTexture = content.Load<Texture2D>("Other/block");
             OrkWalkTexture = content.Load<Texture2D>("Enemies/OrkEnemyWalk");
