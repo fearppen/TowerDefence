@@ -10,7 +10,7 @@ namespace TowerDefence.States
 {
     public class GameState : State
     {
-        private int waveNumber;
+        private double lastPressEscapeTime;
         private readonly Map map;
         private readonly TowerController towerController;
         private readonly EnemyController enemyController;
@@ -85,6 +85,7 @@ namespace TowerDefence.States
         {
             if (MouseManager.IsClicked())
             {
+                buttonController.DeleteAllGameButtons();
                 var clickedCell = map.GetCellByCoords(MouseManager.CurrentMouse.X, MouseManager.CurrentMouse.Y);
                 if (clickedCell.CellType == CellTypes.TowerCell
                     && !towerController.IsTheseTowerCoords(MouseManager.CurrentMouse.X, MouseManager.CurrentMouse.Y))
@@ -103,6 +104,7 @@ namespace TowerDefence.States
         private void TryToPause()
         {
             var currentKeyboardState = Keyboard.GetState();
+
             if (currentKeyboardState.IsKeyDown(Keys.Escape) && GameStats.CurrentState != GameStates.Paused)
             {
                 GameStats.CurrentState = GameStates.Paused;

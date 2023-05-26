@@ -202,5 +202,10 @@ namespace TowerDefence.Controllers
                 }
             }
         }
+
+        public void DeleteAllGameButtons()
+        {
+            playComponents.Clear();
+        }
     }
 }
