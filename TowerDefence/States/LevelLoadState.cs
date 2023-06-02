@@ -15,7 +15,7 @@ namespace TowerDefence.States
             buttonController = new ButtonController();
             backgroundController = new BackgroundController();
 
-            buttonController.AddLevelSelectButtons(game, graphicsDevice);
+            buttonController.InitLevelLoad(game, graphicsDevice);
             backgroundController.SetLevelLoadBackground();
         }
 

@@ -17,8 +17,7 @@ namespace TowerDefence.States
 
             backgroundController.SetMenuBackground();
 
-            buttonController.AddLoadGameMenuButton(game, graphics);
-            buttonController.AddExitMenuButton(game);
+            buttonController.InitMenu(game, graphics);
         }
 
         public override void Update(GameTime gameTime)

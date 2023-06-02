@@ -18,10 +18,9 @@ namespace TowerDefence.States
             textController = new TextController();
 
             backgroundController.SetEndLevelBackground();
-            buttonController.AddGoToMenuButton(game, graphics);
-            buttonController.AddRestartLevelButton(game, graphics, levelId);
+            buttonController.InitEndLevel(game, graphics, levelId);
 
-            textController.AddEndLevelMessage(isWon);
+            textController.InitLevelEndText(isWon);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

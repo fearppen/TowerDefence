@@ -58,7 +58,7 @@ namespace TowerDefence.Models
 
         public void Put()
         {
-            Cost = Cost = (int)Math.Pow(2, Level) * Constants.TowerCost;
+            Cost = (int)Math.Pow(2, Level) * Constants.TowerCost;
         }
 
         public override void Upgrade()

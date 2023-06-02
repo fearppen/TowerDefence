@@ -14,8 +14,6 @@ namespace TowerDefence.Controllers
         private const int StatsOffsetY = 100;
         private const int DistanceBetweenTexts = 30;
 
-        private const int WavesOffset = 30;
-
         private readonly List<Text> texts;
 
         public TextController() 
@@ -39,21 +37,32 @@ namespace TowerDefence.Controllers
             }
         }
 
-        public void AddGoldInfoText()
+        public void InitGameText()
+        {
+            AddGoldInfoText();
+            AddHealthsInfoText();
+        }
+
+        public void InitLevelEndText(bool isWon)
+        {
+            AddEndLevelMessage(isWon);
+        }
+
+        private void AddGoldInfoText()
         {
             texts.Add(new Text(Font, "Золото: ", 
                 new Vector2(Constants.WindowWidth - StatsOffsetX, Constants.WindowHeight - StatsOffsetY),
                 Color.Yellow, GameStats.Gold.ToString())); 
         }
 
-        public void AddHealthsInfoText()
+        private void AddHealthsInfoText()
         {
             texts.Add(new Text(Font, "Жизни: ", 
                 new Vector2(Constants.WindowWidth - StatsOffsetX, Constants.WindowHeight - StatsOffsetY - DistanceBetweenTexts),
                 Color.Red, GameStats.Healths.ToString()));
         }
 
-        public void AddEndLevelMessage(bool isWon)
+        private void AddEndLevelMessage(bool isWon)
         {
             var text = isWon ? "Вы победили! Сыграйте снова или попробуйте другой уровень" : "Вы проиграли. Попробуйте сыграть снова!";
             var width = isWon ? Constants.WindowWidth / 3.6f : Constants.WindowWidth / 2.78f;

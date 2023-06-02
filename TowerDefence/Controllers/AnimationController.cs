@@ -9,7 +9,7 @@ namespace TowerDefence.Controllers
     public class AnimationController
     {
         public Animation CurrentAnimation { get; private set; }
-        private Dictionary<string, Animation> animations = new();
+        private readonly Dictionary<string, Animation> animations = new();
 
         public void AddAnimation(string animationTitle, Animation animation)
         {

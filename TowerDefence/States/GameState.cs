@@ -10,7 +10,6 @@ namespace TowerDefence.States
 {
     public class GameState : State
     {
-        private double lastPressEscapeTime;
         private readonly Map map;
         private readonly TowerController towerController;
         private readonly EnemyController enemyController;
@@ -21,10 +20,7 @@ namespace TowerDefence.States
 
         public GameState(Game1 game, GraphicsDevice graphics, int levelId) : base(game, graphics)
         {
-            GameStats.Healths = Constants.Healths;
-            GameStats.Gold = Constants.Gold;
-            GameStats.Wave = 1;
-            GameStats.CurrentState = GameStates.Playing;
+            GameStats.CreateGameStats();
 
             this.levelId = levelId;
 
@@ -35,8 +31,7 @@ namespace TowerDefence.States
             enemyController = new EnemyController(string.Format(@"..\..\..\Content\Levels\{0}\enemies.txt", levelId), map);
             textController = new TextController();
 
-            textController.AddHealthsInfoText();
-            textController.AddGoldInfoText();
+            textController.InitGameText();
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -108,8 +103,7 @@ namespace TowerDefence.States
             if (currentKeyboardState.IsKeyDown(Keys.Escape) && GameStats.CurrentState != GameStates.Paused)
             {
                 GameStats.CurrentState = GameStates.Paused;
-                buttonController.AddContinueButton();
-                buttonController.AddGoToMenuButton(game, graphicsDevice);
+                buttonController.InitPausedButtons(game, graphicsDevice);
             }
         }
     }

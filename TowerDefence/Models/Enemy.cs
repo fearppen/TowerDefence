@@ -54,8 +54,7 @@ namespace TowerDefence.Models
             color = Color.White;
             direction = ConvertDirection(path[0].CellType);
             animationManager = new AnimationController();
-            animationManager.AddAnimation("walk",
-                new Animation(textures[0], 7, FrameTime, width, height));
+            animationManager.AddAnimation("walk", new Animation(textures[0], 7, FrameTime, width, height));
         }
 
         public void Damage(int damage)

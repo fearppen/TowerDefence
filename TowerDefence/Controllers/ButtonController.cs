@@ -47,6 +47,29 @@ namespace TowerDefence.Controllers
             pauseComponents?.ForEach(c => c.Draw(gameTime, spriteBatch));
         }
 
+        public void InitMenu(Game1 game, GraphicsDevice graphics)
+        {
+            AddExitMenuButton(game);
+            AddLoadGameMenuButton(game, graphics);
+        }
+
+        public void InitLevelLoad(Game1 game, GraphicsDevice graphics)
+        {
+            AddLevelSelectButtons(game, graphics);
+        }
+
+        public void InitEndLevel(Game1 game, GraphicsDevice graphics, int levelId)
+        {
+            AddGoToMenuButton(game, graphics);
+            AddRestartLevelButton(game, graphics, levelId);
+        }
+
+        public void InitPausedButtons(Game1 game, GraphicsDevice graphics)
+        {
+            AddContinueButton();
+            AddGoToMenuButton(game, graphics);
+        }
+
         public void AddGoToMenuButton(Game1 game, GraphicsDevice graphics)
         {
             var button = new Button(ButtonMenuTexture, Font, new Vector2(Constants.WindowWidth / 2 - ButtonMenuTexture.Width / 2,
@@ -64,69 +87,6 @@ namespace TowerDefence.Controllers
                 pauseComponents.Add(button);
             else
                 playComponents.Add(button);
-        }
-
-        public void AddContinueButton()
-        {
-            var button = new Button(ButtonMenuTexture, Font, new Vector2(Constants.WindowWidth / 2 - ButtonMenuTexture.Width / 2, 
-                Constants.WindowHeight / 2 - ButtonMenuTexture.Height))
-            {
-                Text = "Продолжить игру",
-            };
-
-            button.Click += (o, s) => { GameStats.CurrentState = GameStates.Playing; };
-
-            pauseComponents.Add(button);
-        }
-
-        public void AddRestartLevelButton(Game1 game, GraphicsDevice graphics, int levelId)
-        {
-            var button = new Button(ButtonMenuTexture, Font, new Vector2(Constants.WindowWidth / 2 - ButtonMenuTexture.Width / 2, 
-                Constants.WindowHeight / 2 - ButtonMenuTexture.Height))
-            {
-                Text = "Перезапустить уровень",
-            };
-
-            button.Click += (o, s) => { game.ChangeState(new GameState(game, graphics, levelId)); };
-            playComponents.Add(button);
-        }
-
-        public void AddLoadGameMenuButton(Game1 game, GraphicsDevice graphics)
-        {
-            var loadGameButton = new Button(ButtonMenuTexture, Font, new Vector2(Constants.WindowWidth / 2 - ButtonMenuTexture.Width / 2,
-                Constants.WindowHeight / 2 - ButtonMenuTexture.Height * 1.5f))
-            {
-                Text = "Уровни"
-            };
-
-            loadGameButton.Click += (o, s) => { game.ChangeState(new LevelLoadState(game, graphics)); };
-            playComponents.Add(loadGameButton);
-        }
-
-        public void AddExitMenuButton(Game1 game)
-        {
-            var quitGameButton = new Button(ButtonMenuTexture, Font, new Vector2(Constants.WindowWidth / 2 - ButtonMenuTexture.Width / 2, 
-                Constants.WindowHeight / 2 + ButtonMenuTexture.Height))
-            {
-                Text = "Выход"
-            };
-
-            quitGameButton.Click += (o, s) => { game.Exit(); };
-
-            playComponents.Add(quitGameButton);
-        }
-
-        public void AddTestMenuButton(Game1 game, GraphicsDevice graphics)
-        {
-            var testGameButton = new Button(ButtonMenuTexture, Font, new Vector2(Constants.WindowWidth / 2 - ButtonMenuTexture.Width / 2, 
-                Constants.WindowHeight / 2 - ButtonMenuTexture.Height / 3)) 
-            {
-                Text = "Тест" 
-            };
-
-            testGameButton.Click += (o, s) => { game.ChangeState(new GameState(game, graphics, 0)); };
-
-            playComponents.Add(testGameButton);
         }
 
         public void AddBuyButton(MapCell cell, TowerController towerController)
@@ -167,7 +127,62 @@ namespace TowerDefence.Controllers
             playComponents.Add(button);
         }
 
-        public void AddLevelSelectButtons(Game1 game, GraphicsDevice graphics)
+        public void DeleteAllGameButtons()
+        {
+            playComponents.Clear();
+        }
+
+        private void AddRestartLevelButton(Game1 game, GraphicsDevice graphics, int levelId)
+        {
+            var button = new Button(ButtonMenuTexture, Font, new Vector2(Constants.WindowWidth / 2 - ButtonMenuTexture.Width / 2,
+                Constants.WindowHeight / 2 - ButtonMenuTexture.Height))
+            {
+                Text = "Перезапустить уровень",
+            };
+
+            button.Click += (o, s) => { game.ChangeState(new GameState(game, graphics, levelId)); };
+            playComponents.Add(button);
+        }
+
+        private void AddContinueButton()
+        {
+            var button = new Button(ButtonMenuTexture, Font, new Vector2(Constants.WindowWidth / 2 - ButtonMenuTexture.Width / 2,
+                Constants.WindowHeight / 2 - ButtonMenuTexture.Height))
+            {
+                Text = "Продолжить игру",
+            };
+
+            button.Click += (o, s) => { GameStats.CurrentState = GameStates.Playing; };
+
+            pauseComponents.Add(button);
+        }
+
+        private void AddLoadGameMenuButton(Game1 game, GraphicsDevice graphics)
+        {
+            var loadGameButton = new Button(ButtonMenuTexture, Font, new Vector2(Constants.WindowWidth / 2 - ButtonMenuTexture.Width / 2,
+                Constants.WindowHeight / 2 - ButtonMenuTexture.Height * 1.5f))
+            {
+                Text = "Уровни"
+            };
+
+            loadGameButton.Click += (o, s) => { game.ChangeState(new LevelLoadState(game, graphics)); };
+            playComponents.Add(loadGameButton);
+        }
+
+        private void AddExitMenuButton(Game1 game)
+        {
+            var quitGameButton = new Button(ButtonMenuTexture, Font, new Vector2(Constants.WindowWidth / 2 - ButtonMenuTexture.Width / 2,
+                Constants.WindowHeight / 2 + ButtonMenuTexture.Height))
+            {
+                Text = "Выход"
+            };
+
+            quitGameButton.Click += (o, s) => { game.Exit(); };
+
+            playComponents.Add(quitGameButton);
+        }
+
+        private void AddLevelSelectButtons(Game1 game, GraphicsDevice graphics)
         {
             var countButtonsInRow = Constants.WindowWidth / 
                 (LevelSelectButtonTexture.Width + DistanceBetweenLevelButtons);
@@ -202,10 +217,17 @@ namespace TowerDefence.Controllers
                 }
             }
         }
-
-        public void DeleteAllGameButtons()
+        /*public void AddTestMenuButton(Game1 game, GraphicsDevice graphics)
         {
-            playComponents.Clear();
-        }
+            var testGameButton = new Button(ButtonMenuTexture, Font, new Vector2(Constants.WindowWidth / 2 - ButtonMenuTexture.Width / 2,
+                Constants.WindowHeight / 2 - ButtonMenuTexture.Height / 3))
+            {
+                Text = "Тест"
+            };
+
+            testGameButton.Click += (o, s) => { game.ChangeState(new GameState(game, graphics, 0)); };
+
+            playComponents.Add(testGameButton);
+        }*/
     }
 }
