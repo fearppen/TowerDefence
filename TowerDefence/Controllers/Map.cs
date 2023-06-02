@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using TowerDefence.AbstractClasses;
 using TowerDefence.Models;
 using TowerDefence.StaticClasses;
 
